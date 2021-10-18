@@ -8,14 +8,16 @@ using namespace std;
 
 class PersonalBudgetManager {
 
+	const string USERS_FILE_NAME = "users.xml";
 	UserManager userManager;
 
 public:
-	PersonalBudgetManager() {}
-	~PersonalBudgetManager()	{}
+	PersonalBudgetManager(string usersFileName)
+	: userManager(usersFileName), USERS_FILE_NAME(usersFileName){}
+	~PersonalBudgetManager(){}
 
 	void userRegistration();
-	bool userLoggingIn();
+	void userLoggingIn();
 	void loggedInUserPasswordChanging();
 	void userloggingOut();
 	bool isUserLoggedIn();

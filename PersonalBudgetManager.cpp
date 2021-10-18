@@ -4,13 +4,12 @@ void PersonalBudgetManager::userRegistration() {
 	userManager.userRegistration();
 }
 
-bool PersonalBudgetManager::userLoggingIn() {
+void PersonalBudgetManager::userLoggingIn() {
 	userManager.userLoggingIn(); // loggedInUserId
 	if ((userManager.isUserLoggedIn())==true)
 	{
-		return true;
+		userManager.getLoggedInUserId();
 	}	
-	return false;
 }
 
 void PersonalBudgetManager::loggedInUserPasswordChanging() {

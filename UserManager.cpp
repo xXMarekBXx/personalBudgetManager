@@ -2,15 +2,22 @@
 #include "User.h"
 
 int UserManager::getNewUserId() {
-	return loggedInUserId;
+		
+	if (users.empty() == true)
+		return 1;
+	else
+		return users.back().getUserId() + 1;
 }
 
 void UserManager::userRegistration() {
 
+	cout << endl << endl << endl;
+	cout << "YOUR NEW ACCOUNT CREATOR" << endl;
+	cout << "------------------------" << endl;	
 	User user = getNewUserData();
 
 	users.push_back(user);
-	//plikZUzytkownikami.dopiszUzytkownikaDoPliku(uzytkownik);
+	usersFile.addUserToFile(user);
 
 	cout << "Account created successfully" << endl << endl;
 	system("pause");
@@ -26,17 +33,28 @@ User UserManager::getNewUserData() {
 
 	do
 	{
+		cin.ignore();
 		cout << "Enter your login: ";
-		cin >> login;
+		login = AuxiliaryMethods::readLine();
 
 		user.setLogin(login);
 
 	} while (isLoginExist(user.getLogin()) == true);
 
 	cout << "Enter your password: ";
-	string haslo;
-	cin >> haslo;
-	user.setPassword(haslo);
+	string passwrord;	
+	passwrord = AuxiliaryMethods::readLine();
+	user.setPassword(passwrord);
+
+	cout << "Enter your name: ";
+	string name;
+	name = AuxiliaryMethods::readLine();
+	user.setName(name);
+
+	cout << "Enter your surname: ";
+	string surname;
+	surname = AuxiliaryMethods::readLine();
+	user.setSurname(surname);
 
 	return user;
 }

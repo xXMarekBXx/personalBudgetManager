@@ -5,7 +5,7 @@ using namespace std;
 
 int main() {
 		
-	PersonalBudgetManager personalBudgetManager;
+	PersonalBudgetManager personalBudgetManager("users.xml");
 
 	while (true)
 	{

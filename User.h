@@ -3,6 +3,15 @@
 
 #include <iostream>
 #include <string>
+#include <windows.h>
+#include <cstdlib>
+#include <fstream>
+#include <vector>
+#include <iomanip>
+#include <sstream>
+#include <algorithm>
+#include "Markup.h"
+#include "AuxiliaryMethods.h"
 
 using namespace std;
 
@@ -25,6 +34,31 @@ public:
 	string getPassword();
 	string getName();
 	string getSurname();
+};
+
+/////////////////////////////////////////////////////////////////////
+
+class UsersFile
+{
+	CMarkup xml;
+	const string USERS_FILE_NAME="users.xml";	
+	vector <User> users;
+	User user;
+
+	bool isUsersFileEmpty(fstream &xmlFile);
+	bool isUsersFileExists(string usersFileName);
+	int getUserIdFromFile();
+	string getUserLoginFromFile();
+	string getUserPasswordFromFile();
+	string getUserNameFromFile();
+	string getUserSurnameFromFile();
+	User getUsersData();
+
+	
+public:
+	UsersFile(string usersFileName) : USERS_FILE_NAME(usersFileName) {};	
+	void addUserToFile(User user);
+	vector <User> loadUsersFromFile();	
 };
 
 #endif
