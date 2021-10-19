@@ -47,7 +47,7 @@ int AuxiliaryMethods::readInteger() {
 
 	while (true)
 	{
-		cin.ignore();
+		//cin.ignore();
 		getline(cin, data);
 
 		stringstream myStream(data);

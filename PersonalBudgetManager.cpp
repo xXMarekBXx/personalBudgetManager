@@ -5,11 +5,7 @@ void PersonalBudgetManager::userRegistration() {
 }
 
 void PersonalBudgetManager::userLoggingIn() {
-	userManager.userLoggingIn(); // loggedInUserId
-	if ((userManager.isUserLoggedIn())==true)
-	{
-		userManager.getLoggedInUserId();
-	}	
+	userManager.userLoggingIn();		
 }
 
 void PersonalBudgetManager::loggedInUserPasswordChanging() {

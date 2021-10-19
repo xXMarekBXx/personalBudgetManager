@@ -44,8 +44,7 @@ bool UsersFile::isUsersFileEmpty(fstream &xmlFile) {
 		return false;
 }
 
-bool UsersFile::isUsersFileExists(string usersFileName) {
-	bool fileExists;
+bool UsersFile::isUsersFileExists(string usersFileName) {	
 	
 	if (xml.Load(usersFileName))
 	{
@@ -79,88 +78,86 @@ void UsersFile::addUserToFile(User user) {
 	xml.Save("users.xml");	
 }
 
-int UsersFile::getUserIdFromFile() {
+User UsersFile::getAllDataOneSingleUserFromFile() {
+
 	xml.Load(USERS_FILE_NAME);
 	xml.FindElem();
 	xml.IntoElem();
 	xml.FindElem();
 	xml.IntoElem();
+
 	xml.FindElem("UserId");
-	int userId;
-	userId  = AuxiliaryMethods::convertStringToInt(xml.GetData());
+	string userId;
+	userId = xml.GetData();	
+	user.setUserId(AuxiliaryMethods::convertStringToInt(userId));
 
-	return userId;
-}
-
-string UsersFile::getUserLoginFromFile() {
-	xml.Load(USERS_FILE_NAME);
-	xml.FindElem();
-	xml.IntoElem();
-	xml.FindElem();
-	xml.IntoElem();
 	xml.FindElem("Login");
 	string login;
 	login = xml.GetData();
+	user.setLogin(login);
 
-	return login;
-}
-
-string UsersFile::getUserPasswordFromFile() {
-	xml.Load(USERS_FILE_NAME);
-	xml.FindElem();
-	xml.IntoElem();
-	xml.FindElem();
-	xml.IntoElem();
 	xml.FindElem("Password");
 	string password;
 	password = xml.GetData();
+	user.setPassword(password);
 
-	return password;
-}
-
-string UsersFile::getUserNameFromFile() {
-	xml.Load(USERS_FILE_NAME);
-	xml.FindElem();
-	xml.IntoElem();
-	xml.FindElem();
-	xml.IntoElem();
 	xml.FindElem("Name");
 	string name;
 	name = xml.GetData();
+	user.setName(name);
 
-	return name;
-}
-
-string UsersFile::getUserSurnameFromFile() {
-	xml.Load(USERS_FILE_NAME);
-	xml.FindElem();
-	xml.IntoElem();
-	xml.FindElem();
-	xml.IntoElem();
-	xml.FindElem("Surname");
+	xml.FindElem("Surame");
 	string surname;
 	surname = xml.GetData();
-
-	return surname;
-}
-
-User UsersFile::getUsersData()
-{
-	user.setUserId(getUserIdFromFile());
-	user.setLogin(getUserLoginFromFile());
-	user.setPassword(getUserPasswordFromFile());
-	user.setName(getUserNameFromFile());
-	user.setSurname(getUserSurnameFromFile());
+	user.setSurname(surname);
 
 	return user;
 }
 
-vector <User> UsersFile::loadUsersFromFile()
-{	
-	xml.Load(USERS_FILE_NAME);		
-	
-	user = getUsersData();
-	users.push_back(user);
-		
+vector <User> UsersFile::loadAllUsersDataFromFileToVector()
+{
+	xml.Load("users.xml");
+
+	xml.FindElem("Users");
+	xml.IntoElem();
+
+	while (xml.FindElem("User"))
+	{
+		xml.IntoElem();
+
+		xml.FindElem("UserId");
+		string userId;
+		userId = xml.GetData();
+		user.setUserId(AuxiliaryMethods::convertStringToInt(userId));
+
+		xml.FindElem("Login");
+		string login;
+		login = xml.GetData();
+		user.setLogin(login);
+
+		xml.FindElem("Password");
+		string password;
+		password = xml.GetData();
+		user.setPassword(password);
+
+		xml.FindElem("Name");
+		string name;
+		name = xml.GetData();
+		user.setName(name);
+
+		xml.FindElem("Surame");
+		string surname;
+		surname = xml.GetData();
+		user.setSurname(surname);
+
+		users.push_back(user);
+		xml.OutOfElem();		
+	}
+	return users;
+}
+
+
+vector <User> UsersFile::loadUsersFromFile() {		
+	loadAllUsersDataFromFileToVector();		
 	return users;
 }

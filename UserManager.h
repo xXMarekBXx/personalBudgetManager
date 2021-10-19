@@ -31,10 +31,9 @@ class UserManager {
 public:	
 	UserManager(string usersFileName) : usersFile(usersFileName) {
 		loggedInUserId = 0;
-		users = usersFile.loadUsersFromFile(); // loadUsersFromFile
+		users = usersFile.loadUsersFromFile();		
 	};
-
-	int getLoggedInUserId();
+	
 	void userRegistration();
 	int userLoggingIn();
 	void loggedInUserPasswordChanging();

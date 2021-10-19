@@ -47,18 +47,14 @@ class UsersFile
 
 	bool isUsersFileEmpty(fstream &xmlFile);
 	bool isUsersFileExists(string usersFileName);
-	int getUserIdFromFile();
-	string getUserLoginFromFile();
-	string getUserPasswordFromFile();
-	string getUserNameFromFile();
-	string getUserSurnameFromFile();
-	User getUsersData();
+	User getAllDataOneSingleUserFromFile();
+	vector <User> loadAllUsersDataFromFileToVector();
 
-	
 public:
 	UsersFile(string usersFileName) : USERS_FILE_NAME(usersFileName) {};	
 	void addUserToFile(User user);
 	vector <User> loadUsersFromFile();	
+	
 };
 
 #endif

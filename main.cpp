@@ -18,8 +18,8 @@ int main() {
 			cout << "2. Log in" << endl;
 			cout << "9. Close the program" << endl;
 			cout << "Your choice: ";
-			int choice;
-			cin >> choice;
+			int choice;			
+			choice = AuxiliaryMethods::readInteger();
 
 			switch (choice)
 			{
@@ -35,6 +35,7 @@ int main() {
 			default:
 				cout << endl << "There is no such option on the menu." << endl << endl;
 				system("pause");
+				exit(0);
 				break;
 			}
 		}
@@ -73,7 +74,7 @@ int main() {
 				;//personalBudgetManager.balanceSheetForSelectedPeriod();
 				break;
 			case 6:
-				personalBudgetManager.loggedInUserPasswordChanging();
+				personalBudgetManager.loggedInUserPasswordChanging(); // teraz to -> plikZUzytkownikami.zapiszWszystkichUzytkownikowDoPliku(uzytkownicy);
 				break;
 			case 7:
 				personalBudgetManager.userloggingOut();

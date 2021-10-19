@@ -1,12 +1,10 @@
 #include "UserManager.h"
 #include "User.h"
 
-int UserManager::getNewUserId() {
-		
-	if (users.empty() == true)
+int UserManager::getNewUserId() {	
+	return users.back().getUserId() + 1;
+	if (users.empty())
 		return 1;
-	else
-		return users.back().getUserId() + 1;
 }
 
 void UserManager::userRegistration() {
@@ -57,14 +55,6 @@ User UserManager::getNewUserData() {
 	user.setSurname(surname);
 
 	return user;
-}
-
-int  UserManager::getLoggedInUserId() {
-
-	if (users.empty() == true)
-		return 1;
-	else
-		return users.back().getUserId() + 1;
 }
 
 bool UserManager::isLoginExist(string login) {
