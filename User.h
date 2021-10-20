@@ -43,8 +43,8 @@ class UsersFile
 	CMarkup xml;
 	const string USERS_FILE_NAME="users.xml";	
 	vector <User> users;
-	User user;
-
+	User user;	
+	
 	bool isUsersFileEmpty(fstream &xmlFile);
 	bool isUsersFileExists(string usersFileName);
 	User getAllDataOneSingleUserFromFile();
@@ -54,7 +54,6 @@ public:
 	UsersFile(string usersFileName) : USERS_FILE_NAME(usersFileName) {};	
 	void addUserToFile(User user);
 	vector <User> loadUsersFromFile();	
-	
 };
 
 #endif

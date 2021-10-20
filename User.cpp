@@ -75,7 +75,7 @@ void UsersFile::addUserToFile(User user) {
 	xml.AddElem("Name", user.getName());
 	xml.AddElem("Surname", user.getSurname());
 
-	xml.Save("users.xml");	
+	xml.Save("users.xml");		
 }
 
 User UsersFile::getAllDataOneSingleUserFromFile() {
@@ -152,10 +152,9 @@ vector <User> UsersFile::loadAllUsersDataFromFileToVector()
 
 		users.push_back(user);
 		xml.OutOfElem();		
-	}
+	}	
 	return users;
 }
-
 
 vector <User> UsersFile::loadUsersFromFile() {		
 	loadAllUsersDataFromFileToVector();		

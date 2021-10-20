@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include "Markup.h"
 #include "AuxiliaryMethods.h"
 #include "User.h"
 #include "Incomes.h"
@@ -15,6 +16,7 @@ using namespace std;
 
 class UserManager {	
 
+	CMarkup xml;
 	int loggedInUserId;
 	vector <User> users;
 	UsersFile usersFile;
@@ -34,6 +36,8 @@ public:
 		users = usersFile.loadUsersFromFile();		
 	};
 	
+	void changePasswordInFile(string newPassword);
+	int getLoggedInUserId();
 	void userRegistration();
 	int userLoggingIn();
 	void loggedInUserPasswordChanging();

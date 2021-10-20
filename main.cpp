@@ -74,7 +74,7 @@ int main() {
 				;//personalBudgetManager.balanceSheetForSelectedPeriod();
 				break;
 			case 6:
-				personalBudgetManager.loggedInUserPasswordChanging(); // teraz to -> plikZUzytkownikami.zapiszWszystkichUzytkownikowDoPliku(uzytkownicy);
+				personalBudgetManager.loggedInUserPasswordChanging();
 				break;
 			case 7:
 				personalBudgetManager.userloggingOut();

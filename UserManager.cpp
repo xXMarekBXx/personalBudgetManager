@@ -1,6 +1,11 @@
 #include "UserManager.h"
 #include "User.h"
 
+int UserManager::getLoggedInUserId()
+{
+	return loggedInUserId;
+}
+
 int UserManager::getNewUserId() {	
 	return users.back().getUserId() + 1;
 	if (users.empty())
@@ -125,6 +130,32 @@ int UserManager::userLoggingIn() {
 	return 0;
 }
 
+void UserManager::changePasswordInFile(string newPassword) {
+
+	xml.Load("users.xml");
+	xml.FindElem("Users");
+	xml.IntoElem();
+
+	while (xml.FindElem("User")) {
+		xml.IntoElem();
+
+		xml.FindElem("UserId");
+		string id;
+		id = xml.GetData();		
+
+		int idValue = AuxiliaryMethods::convertStringToInt(id);
+
+		if (idValue == loggedInUserId) {
+			
+			xml.FindElem("Password");
+			xml.RemoveElem();
+			xml.AddElem("Password",newPassword);
+			xml.Save("users.xml");
+			break;
+		}
+	}
+}
+
 void UserManager::loggedInUserPasswordChanging() {
 	User user;
 
@@ -132,7 +163,8 @@ void UserManager::loggedInUserPasswordChanging() {
 
 	cout << "Enter new password: ";
 
-	cin >> newPassword;
+	cin.ignore();
+	newPassword = AuxiliaryMethods::readLine();
 		
 	for (vector <User>::iterator itr = users.begin(); itr != users.end(); itr++)
 	{
@@ -143,7 +175,7 @@ void UserManager::loggedInUserPasswordChanging() {
 			system("pause");
 		}
 	}
-	//plikZUzytkownikami.zapiszWszystkichUzytkownikowDoPliku(uzytkownicy);
+	changePasswordInFile(newPassword);
 }
 
 int UserManager::userloggingOut() {
