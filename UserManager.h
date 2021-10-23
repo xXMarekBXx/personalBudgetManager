@@ -19,15 +19,13 @@ class UserManager {
 	CMarkup xml;
 	int loggedInUserId;
 	vector <User> users;
-	UsersFile usersFile;
+	UsersFile usersFile;	
 
 	User getNewUserData();
 	int getNewUserId();
 	bool isLoginExist(string login);	
-	bool isRightWholeDate(string date);
-	int dateMergerConverter(string date);
-	int convertDate(string date);
-
+	
+	Incomes incomes;
 	string date;
 
 public:	

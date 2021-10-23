@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int main() {
+int _main() {
 		
 	PersonalBudgetManager personalBudgetManager("users.xml");
 
@@ -59,7 +59,7 @@ int main() {
 			switch (choice)
 			{
 			case 1:
-				;//personalBudgetManager.addIncome();
+				personalBudgetManager.addIncome();
 				break;
 			case 2:
 				;//personalBudgetManager.addExpense();
@@ -83,3 +83,15 @@ int main() {
 		}
 	}
 }
+
+
+#include "PersonalBudgetManager.h"
+
+int main() {
+
+	PersonalBudgetManager personalBudgetManager("users.xml");
+	personalBudgetManager.userLoggingIn();
+	personalBudgetManager.addIncome();
+
+}
+

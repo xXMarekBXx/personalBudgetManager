@@ -183,47 +183,9 @@ int UserManager::userloggingOut() {
 	return loggedInUserId;
 }
 
-bool UserManager::isRightWholeDate(string date) {
-	string year = AuxiliaryMethods::dateDividerYear(date);
-	string month = AuxiliaryMethods::dateDividerMonth(date);
-	string day = AuxiliaryMethods::dateDividerDay(date);
-
-	if (AuxiliaryMethods::isRightYear(year) && AuxiliaryMethods::isRightMonth(month) && AuxiliaryMethods::isRightDay(day))
-	{
-		cout << "Right Date!" << endl;
-		return true;
-	}
-
-	return false;
-}
-
-int UserManager::dateMergerConverter(string date) {
-	string year = "";
-	string month = "";
-	string day = "";
-	string wholeDate = "";
-	int intWholeDate = 0;
-
-	year = AuxiliaryMethods::dateDividerYear(date);
-	month = AuxiliaryMethods::dateDividerMonth(date);
-	day = AuxiliaryMethods::dateDividerDay(date);
-	wholeDate = year + month + day;
-	intWholeDate = AuxiliaryMethods::convertStringToInt(wholeDate);
-
-	return intWholeDate;
-}
-
-int UserManager::convertDate(string date) {
-
-	if (isRightWholeDate(date))	{
-
-		return dateMergerConverter(date);
-	}
-	return 0;
-}
-
 void UserManager::addIncome() {
 
+	incomes. todayOrAnyOtherDateMenu();
 }
 
 void UserManager::addExpense() {
