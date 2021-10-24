@@ -3,9 +3,9 @@
 
 using namespace std;
 
-int _main() {
+int main() {
 		
-	PersonalBudgetManager personalBudgetManager("users.xml");
+	PersonalBudgetManager personalBudgetManager("users.xml","incomes.xml");
 
 	while (true)
 	{
@@ -84,7 +84,7 @@ int _main() {
 	}
 }
 
-
+/*
 #include "PersonalBudgetManager.h"
 
 int main() {
@@ -94,4 +94,4 @@ int main() {
 	personalBudgetManager.addIncome();
 
 }
-
+*/

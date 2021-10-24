@@ -15,23 +15,13 @@ using namespace std;
 
 class Incomes {
 
-	CMarkup xml;
-	const string INCOMES_FILE_NAME = "incomes.xml";
-
 	int incomeId;
 	int userId;
 	string date;
 	string item;
 	float amount;	
 
-public:
-
-	bool isIncomesFileExists(string usersFileName);
-	void addIncomeToFile();
-	void todayOrAnyOtherDateMenu();
-	string getTodaysDate();
-	void getAllDataToIncome();
-
+public:	
 	void setIncomeId(int newIncomeId);
 	void setUserId(int newUserId);
 	void setDate(string newDate);
@@ -43,6 +33,25 @@ public:
 	string getDate();
 	string getItem();
 	float getAmount();	
+};
+
+///////////////////////////////////////////////////////////////////////////////////
+
+class IncomesFile
+{
+	CMarkup xml;
+	const string INCOMES_FILE_NAME = "incomes.xml";
+	vector <Incomes> vectorIncomes;
+	Incomes incomes;
+	   	 
+	bool isIncomesFileExists(string incomesFileName);	
+	//Incomes getAllDataOneSingleUserFromFile();
+	vector <Incomes> loadAllIncomesDataFromFileToVector();
+
+public:
+	IncomesFile(string incomesFileName) : INCOMES_FILE_NAME(incomesFileName) {};	
+	void addIncomeToFile();	
+	vector <Incomes> loadIncomesFromFile();
 };
 
 #endif

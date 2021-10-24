@@ -145,7 +145,6 @@ string AuxiliaryMethods::dateDividerDay(string date) {
 	return day;
 }
 
-
 bool AuxiliaryMethods::isRightWholeDate(string date) {
 	string year = AuxiliaryMethods::dateDividerYear(date);
 	string month = AuxiliaryMethods::dateDividerMonth(date);
@@ -183,4 +182,29 @@ int AuxiliaryMethods::convertDate(string date) {
 		return dateMergerConverter(date);
 	}
 	return 0;
+}
+
+
+
+string  AuxiliaryMethods::getTodaysDate()
+{
+	string date = "";
+	string year = "";
+	string month = "";
+	string day = "";
+
+	SYSTEMTIME currentDate;
+	GetSystemTime(&currentDate);
+
+	cout << endl;
+	//cout << "Today's date: " << currentDate.wYear << "-" << currentDate.wMonth << "-" << currentDate.wDay << endl;
+
+	year = to_string(currentDate.wYear);
+	month = to_string(currentDate.wMonth);
+	day = to_string(currentDate.wDay);
+
+	date = year + "-" + month + "-" + day;
+	//cout << date << endl;
+	
+	return date;
 }

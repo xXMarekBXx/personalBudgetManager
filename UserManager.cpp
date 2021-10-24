@@ -183,9 +183,56 @@ int UserManager::userloggingOut() {
 	return loggedInUserId;
 }
 
+void UserManager::todayOrAnyOtherDateMenu()
+{
+	system("cls");
+	cout << "Adding Income" << endl;
+	cout << "1. Add today's income" << endl;
+	cout << "2. Add income witch other date" << endl;
+	cout << "Your choice: ";
+
+	int choice;
+	cin.ignore();
+	choice = AuxiliaryMethods::readInteger();
+
+	switch (choice)
+	{
+	case 1:
+		getAllDataToIncome();
+		incomesFile.addIncomeToFile();
+		break;
+	case 2:
+		;
+		break;
+	default:
+		cout << endl << "There is no such option on the menu." << endl << endl;
+		system("pause");
+		break;
+	}
+}
+
+void UserManager::getAllDataToIncome()
+{
+	incomes.setIncomeId(incomes.getIncomeId()+1);
+	incomes.setUserId(loggedInUserId);
+	incomes.setDate(AuxiliaryMethods::getTodaysDate());
+
+	cout << "Enter the name of the income: ";
+	string item;
+	item = AuxiliaryMethods::readLine();
+	cout << item << endl;
+	incomes.setItem(item);
+
+	cout << "Enter the amount of the income: ";
+	float amount;
+	cin >> amount;
+	cout << amount << endl;
+	incomes.setAmount(amount);
+}
+
 void UserManager::addIncome() {
 
-	incomes. todayOrAnyOtherDateMenu();
+	todayOrAnyOtherDateMenu();
 }
 
 void UserManager::addExpense() {

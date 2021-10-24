@@ -42,9 +42,9 @@ float Incomes::getAmount() {
 	return amount;
 }
 
-// other methods
+///////////////////////////////////////////////////////////////////////////////
 
-bool Incomes::isIncomesFileExists(string incomesFileName) {
+bool IncomesFile::isIncomesFileExists(string incomesFileName) {
 
 	if (xml.Load(incomesFileName))
 	{
@@ -56,7 +56,7 @@ bool Incomes::isIncomesFileExists(string incomesFileName) {
 	return false;
 }
 
-void Incomes::addIncomeToFile() {
+void IncomesFile::addIncomeToFile() {
 	
 	if (isIncomesFileExists(INCOMES_FILE_NAME) == true)
 		xml.Load(INCOMES_FILE_NAME);
@@ -68,83 +68,57 @@ void Incomes::addIncomeToFile() {
 	
 	xml.FindElem();
 	xml.IntoElem();	
-	xml.AddElem("incomeId", getIncomeId());
-	xml.AddElem("userId", getUserId());
-	xml.AddElem("date", getDate());
-	xml.AddElem("item", getItem());
-	xml.AddElem("amount", getAmount());
+	xml.AddElem("userId", incomes.getUserId());
+	xml.AddElem("incomeId", incomes.getIncomeId());
+	xml.AddElem("date", incomes.getDate());
+	xml.AddElem("item", incomes.getItem());
+	xml.AddElem("amount", incomes.getAmount());
 
 	xml.Save("incomes.xml");
 	
+	cout << "Income added" << endl;
+	system("Pause");
 }
 
+vector <Incomes> IncomesFile::loadAllIncomesDataFromFileToVector()
+{
+	xml.Load("incomes.xml");
 
-void Incomes::getAllDataToIncome()
-{	
-	setDate(getTodaysDate());
+	xml.FindElem("Incomes");
+	xml.IntoElem();
 
-	cout << "Enter the name of the income: ";
+	xml.FindElem("userId");
+	string userId;
+	userId = xml.GetData();
+	incomes.setUserId(AuxiliaryMethods::convertStringToInt(userId));
+	
+	xml.FindElem("incomeId");
+	string incomeId;
+	incomeId = xml.GetData();
+	incomes.setIncomeId(AuxiliaryMethods::convertStringToInt(incomeId));
+	
+	xml.FindElem("date");
+	string date;
+	date = xml.GetData();
+	incomes.setDate(date);
+
+	xml.FindElem("item");
 	string item;
-	item = AuxiliaryMethods::readLine();
-	cout << item << endl;
-	setItem(item);
+	item = xml.GetData();
+	incomes.setItem(item);
 
-	cout << "Enter the amount of the income: ";
-	float amount;
-	cin >> amount;
-	cout << amount << endl;
-	setAmount(amount);
-
-	system("pause");
+	xml.FindElem("amount");
+	string amount;
+	incomeId = xml.GetData();
+	incomes.setAmount(AuxiliaryMethods::convertStringToInt(incomeId));
+	
+	vectorIncomes.push_back(incomes);	
+	
+	return vectorIncomes;
 }
 
-string Incomes::getTodaysDate()
-{
-	string date = "";
-	string year = "";
-	string month = "";
-	string day = "";
 
-	SYSTEMTIME currentDate;
-	GetSystemTime(&currentDate);
-
-	cout << endl;
-	cout << "Today's date: " << currentDate.wYear << "-" << currentDate.wMonth << "-" << currentDate.wDay << endl;
-
-	year = to_string(currentDate.wYear);
-	month = to_string(currentDate.wMonth);
-	day = to_string(currentDate.wDay);
-
-	date = year + "-" + month + "-" + day;
-	cout << date << endl;
-	system("pause");
-	return date;
-}
-
-void Incomes::todayOrAnyOtherDateMenu()
-{
-	system("cls");
-	cout << "Adding Income" << endl;
-	cout << "1. Add today's income" << endl;
-	cout << "2. Add income witch other date" << endl;
-	cout << "Your choice: ";
-
-	int choice;
-	cin.ignore();
-	choice = AuxiliaryMethods::readInteger();
-
-	switch (choice)
-	{
-	case 1:
-		getAllDataToIncome();
-		addIncomeToFile();
-		break;
-	case 2:
-		;
-		break;
-	default:
-		cout << endl << "There is no such option on the menu." << endl << endl;
-		system("pause");
-		break;
-	}
+vector <Incomes> IncomesFile::loadIncomesFromFile() {
+	loadAllIncomesDataFromFileToVector();
+	return vectorIncomes;
 }

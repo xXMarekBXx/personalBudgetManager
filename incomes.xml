@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Incomes>
-<incomeId>0</incomeId>
 <userId>0</userId>
-<date>2021-10-23</date>
-<item>Shopping</item>
-<amount>132</amount>
+<incomeId>0</incomeId>
+<date/>
+<item/>
+<amount>0</amount>
 </Incomes>

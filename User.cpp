@@ -160,3 +160,4 @@ vector <User> UsersFile::loadUsersFromFile() {
 	loadAllUsersDataFromFileToVector();		
 	return users;
 }
+
