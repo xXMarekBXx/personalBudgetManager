@@ -197,14 +197,14 @@ string  AuxiliaryMethods::getTodaysDate()
 	GetSystemTime(&currentDate);
 
 	cout << endl;
-	//cout << "Today's date: " << currentDate.wYear << "-" << currentDate.wMonth << "-" << currentDate.wDay << endl;
+	cout << "Today's date: " << currentDate.wYear << "-" << currentDate.wMonth << "-" << currentDate.wDay << endl;
 
 	year = to_string(currentDate.wYear);
 	month = to_string(currentDate.wMonth);
 	day = to_string(currentDate.wDay);
 
 	date = year + "-" + month + "-" + day;
-	//cout << date << endl;
+	cout << date << endl;
 	
 	return date;
 }

@@ -115,7 +115,7 @@ int UserManager::userLoggingIn() {
 				{
 					cout << endl << "You have logged in correctly." << endl << endl;
 					system("pause");
-					loggedInUserId = itr->getUserId();
+					loggedInUserId = itr->getUserId();					
 					return loggedInUserId;
 				}
 			}
@@ -199,7 +199,7 @@ void UserManager::todayOrAnyOtherDateMenu()
 	{
 	case 1:
 		getAllDataToIncome();
-		incomesFile.addIncomeToFile();
+		incomesFile.addIncomeToFile(incomes);		
 		break;
 	case 2:
 		;
@@ -212,9 +212,9 @@ void UserManager::todayOrAnyOtherDateMenu()
 }
 
 void UserManager::getAllDataToIncome()
-{
-	incomes.setIncomeId(incomes.getIncomeId()+1);
-	incomes.setUserId(loggedInUserId);
+{	
+	incomes.setUserId(loggedInUserId);	
+	incomes.setIncomeId(incomesFile.getNextIncomeId());
 	incomes.setDate(AuxiliaryMethods::getTodaysDate());
 
 	cout << "Enter the name of the income: ";

@@ -17,13 +17,13 @@ public:
 	PersonalBudgetManager(string usersFileName, string incomesFileName)
 		: userManager(usersFileName, incomesFileName), USERS_FILE_NAME(usersFileName), INCOMES_FILE_NAME(incomesFileName)
 	{
-		incomesFile = NULL;
+		incomesFile = NULL;		
 	};	
 
 	~PersonalBudgetManager()
 	{
 		delete incomesFile;
-		incomesFile = NULL;
+		incomesFile = NULL;		
 	}
 
 	void userRegistration();

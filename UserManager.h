@@ -36,7 +36,7 @@ class UserManager {
 public:	
 	UserManager(string usersFileName, string incomesFileName) : usersFile(usersFileName), incomesFile(incomesFileName) {
 		loggedInUserId = 0;
-		users = usersFile.loadUsersFromFile();	
+		users = usersFile.loadUsersFromFile();
 		vectorIncomes = incomesFile.loadIncomesFromFile();
 	};
 	
