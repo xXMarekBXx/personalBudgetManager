@@ -198,11 +198,12 @@ void UserManager::todayOrAnyOtherDateMenu()
 	switch (choice)
 	{
 	case 1:
-		getAllDataToIncome();
+		getAllDataToTodaysIncome();
 		incomesFile.addIncomeToFile(incomes);		
 		break;
 	case 2:
-		;
+		getAllDataToSelectedIncome();
+		incomesFile.addIncomeToFile(incomes);
 		break;
 	default:
 		cout << endl << "There is no such option on the menu." << endl << endl;
@@ -211,22 +212,54 @@ void UserManager::todayOrAnyOtherDateMenu()
 	}
 }
 
-void UserManager::getAllDataToIncome()
+void UserManager::getAllDataToTodaysIncome()
 {	
 	incomes.setUserId(loggedInUserId);	
-	incomes.setIncomeId(incomesFile.getNextIncomeId());
+
+	int newIncomeId = incomesFile.returnVectorSize() + 1;
+	incomes.setIncomeId(newIncomeId);
+	
 	incomes.setDate(AuxiliaryMethods::getTodaysDate());
 
 	cout << "Enter the name of the income: ";
 	string item;
-	item = AuxiliaryMethods::readLine();
-	cout << item << endl;
+	item = AuxiliaryMethods::readLine();	
 	incomes.setItem(item);
 
 	cout << "Enter the amount of the income: ";
 	float amount;
-	cin >> amount;
-	cout << amount << endl;
+	cin >> amount;	
+	incomes.setAmount(amount);
+}
+
+void UserManager::getAllDataToSelectedIncome()
+{
+	incomes.setUserId(loggedInUserId);
+
+	int newIncomeId = incomesFile.returnVectorSize() + 1;
+	incomes.setIncomeId(newIncomeId);
+
+	cout << "Enter the date of the income in the format: yyyy-mm-dd: " << endl;
+	string date;
+
+	do 
+	{
+		cin >> date;
+
+	} while (!AuxiliaryMethods::isRightWholeDate(date));	
+
+	AuxiliaryMethods::convertDate(date);
+	
+	incomes.setDate(date);	
+
+	cout << "Enter the name of the income: ";
+	string item;
+	cin >> item;	
+	incomes.setItem(item);
+
+	cout << "Enter the amount of the income: ";
+	float amount;
+	cin >> amount;	
 	incomes.setAmount(amount);
 }
 

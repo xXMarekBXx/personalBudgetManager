@@ -56,42 +56,17 @@ bool IncomesFile::isIncomesFileExists(string incomesFileName) {
 	return false;
 }
 
-int IncomesFile::getLastIncomeId() {
-		
-	xml.Load(INCOMES_FILE_NAME);
-	
-	while (xml.FindElem("Incomes"))
+int IncomesFile::returnVectorSize()
+{
+	int vectorSize = vectorIncomes.size();
+
+	if (vectorSize == 0)
 	{
-		xml.IntoElem();
-
-		xml.FindElem("incomeId");
-		string incomeId;
-		incomeId = xml.GetData();
-		return AuxiliaryMethods::convertStringToInt(incomeId);
-		xml.OutOfElem();
-	}
-	
-	if (!xml.Load(INCOMES_FILE_NAME))
 		return 0;
-}
-
-int IncomesFile::getNextIncomeId()
-{
-	int newIncomeId = 0;
-	newIncomeId = getLastIncomeId() + 1;
-	return newIncomeId;
-}
-
-int IncomesFile::getNewIncomeId() {
-	return vectorIncomes.back().getIncomeId() + 1;
-	if (vectorIncomes.empty())
-		return 1;
-}
-
-void IncomesFile::increaseIncomeId(Incomes incomes)
-{
-	incomes.setIncomeId(getNewIncomeId());
-	vectorIncomes.push_back(incomes);
+	}
+	else {
+		return vectorSize;
+	}
 }
 
 void IncomesFile::addIncomeToFile(Incomes incomes) {
@@ -102,18 +77,21 @@ void IncomesFile::addIncomeToFile(Incomes incomes) {
 	{
 		xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
 		xml.AddElem("Incomes");
-	}
-	
-	xml.FindElem("Incomes");
-	xml.IntoElem();		
-	xml.AddElem("userId", incomes.getUserId());	
-	increaseIncomeId(incomes);
-	xml.AddElem("incomeId", incomes.getIncomeId());
+	}	
+
+	xml.FindElem();
+	xml.IntoElem();	
+	xml.AddElem("Income");
+	xml.IntoElem();
+	xml.AddElem("userId", incomes.getUserId());		
+	xml.AddElem("incomeId", incomes.getIncomeId());	
 	xml.AddElem("date", incomes.getDate());
 	xml.AddElem("item", incomes.getItem());
 	xml.AddElem("amount", incomes.getAmount());
 
 	xml.Save("incomes.xml");
+	
+	vectorIncomes.push_back(incomes);
 	
 	cout << "Income added" << endl;
 	system("Pause");
@@ -126,33 +104,38 @@ vector <Incomes> IncomesFile::loadAllIncomesDataFromFileToVector()
 	xml.FindElem("Incomes");
 	xml.IntoElem();
 
-	xml.FindElem("userId");
-	string userId;
-	userId = xml.GetData();
-	incomes.setUserId(AuxiliaryMethods::convertStringToInt(userId));
-	
-	xml.FindElem("incomeId");
-	string incomeId;
-	incomeId = xml.GetData();
-	incomes.setIncomeId(AuxiliaryMethods::convertStringToInt(incomeId));
-	
-	xml.FindElem("date");
-	string date;
-	date = xml.GetData();
-	incomes.setDate(date);
+	while (xml.FindElem("Income"))
+	{
+		xml.IntoElem();
 
-	xml.FindElem("item");
-	string item;
-	item = xml.GetData();
-	incomes.setItem(item);
+		xml.FindElem("userId");
+		string userId;
+		userId = xml.GetData();
+		incomes.setUserId(AuxiliaryMethods::convertStringToInt(userId));
 
-	xml.FindElem("amount");
-	string amount;
-	incomeId = xml.GetData();
-	incomes.setAmount(AuxiliaryMethods::convertStringToInt(incomeId));
-	
-	vectorIncomes.push_back(incomes);
-	
+		xml.FindElem("incomeId");
+		string incomeId;
+		incomeId = xml.GetData();
+		incomes.setIncomeId(AuxiliaryMethods::convertStringToInt(incomeId));
+
+		xml.FindElem("date");
+		string date;
+		date = xml.GetData();
+		incomes.setDate(date);
+
+		xml.FindElem("item");
+		string item;
+		item = xml.GetData();
+		incomes.setItem(item);
+
+		xml.FindElem("amount");
+		string amount;
+		amount = xml.GetData();
+		incomes.setAmount(AuxiliaryMethods::convertStringToInt(incomeId));		
+
+		vectorIncomes.push_back(incomes);
+		xml.OutOfElem();
+	}
 	return vectorIncomes;
 }
 

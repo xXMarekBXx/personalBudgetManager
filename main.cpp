@@ -18,8 +18,8 @@ int main() {
 			cout << "2. Log in" << endl;
 			cout << "9. Close the program" << endl;
 			cout << "Your choice: ";
-			int choice;			
-			choice = AuxiliaryMethods::readInteger();
+			int choice;
+			cin >> choice;
 
 			switch (choice)
 			{

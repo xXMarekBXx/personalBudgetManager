@@ -21,7 +21,6 @@ string AuxiliaryMethods::readLine() {
 	getline(cin, data);
 	return data;
 }
-
 char AuxiliaryMethods::readChar() {
 	string data = "";
 	char sign = { 0 };
@@ -79,9 +78,11 @@ bool AuxiliaryMethods::isRightYear(string year) {
 	if ((isNumber(year)) && (howManyDigits(intText) == 4) && (intText >= 2000) && (intText <= currentDate.wYear))
 	{
 		return true;
-	}
-
-	return false;
+	} else {
+		cout << "Not the correct year!" << endl;
+		system("Pause");		
+		return false;
+	}	
 }
 
 bool AuxiliaryMethods::isRightMonth(string month) {
@@ -93,23 +94,84 @@ bool AuxiliaryMethods::isRightMonth(string month) {
 	if ((isNumber(month)) && (howManyDigits(intText) >= 1) && (howManyDigits(intText) <= 2) && (intText >= 0) && (intText <= 12) && (intText <= currentDate.wMonth))
 	{
 		return true;
+	} else {
+		cout << "Not the correct month!" << endl;
+		system("Pause");
+		return false;
 	}
-
-	return false;
 }
 
-bool AuxiliaryMethods::isRightDay(string day) {
+int AuxiliaryMethods::howManyDaysInMonth(int year, int month)
+{
+	int daysQuantity;
+	int monthNumber = month;	
+	
+	if (monthNumber == 4 || monthNumber == 6 || monthNumber == 9 || monthNumber == 11)
+		daysQuantity = 30;
+	else if (monthNumber == 1 || monthNumber == 3 || monthNumber == 5 || monthNumber == 7 || monthNumber == 8 || monthNumber == 10 || monthNumber == 12)
+		daysQuantity = 31;
+	else if (monthNumber == 2)
+	{
+		if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0))
+		{
+			daysQuantity = 29;
+		}
+		else
+			daysQuantity = 28;
+	}
+
+	return daysQuantity;
+}
+
+bool AuxiliaryMethods::isRightDay(string year, string month, string day) {
 	SYSTEMTIME currentDate;
 	GetSystemTime(&currentDate);
 
-	int intText = convertStringToInt(day);
+	int intYear = convertStringToInt(year);
+	int intMonth = convertStringToInt(month);
+	int intDay = convertStringToInt(day);
 
-	if ((isNumber(day)) && (howManyDigits(intText) >= 1) && (howManyDigits(intText) <= 2) && (intText >= 0) && (intText <= 31))
-	{
-		return true;
+	int amountOfDays = howManyDaysInMonth(intYear, intMonth);
+	   	  	
+	if (amountOfDays == 31)	{
+		if ((isNumber(day)) && (howManyDigits(intDay) >= 1) && (howManyDigits(intDay) <= 2) && (intDay >= 0) && (intDay <= 31))
+		{
+			return true;
+		} else {
+			cout << "Not the correct day!" << endl;			
+			system("Pause");
+			return false;
+		}
+	} else if (amountOfDays == 30) {
+		if ((isNumber(day)) && (howManyDigits(intDay) >= 1) && (howManyDigits(intDay) <= 2) && (intDay >= 0) && (intDay <= 30))
+		{
+			return true;
+		} else {
+			cout << "Not the correct day!" << endl;			
+			system("Pause");
+			return false;
+		}
+	} else if (amountOfDays == 29) {
+		if ((isNumber(day)) && (howManyDigits(intDay) >= 1) && (howManyDigits(intDay) <= 2) && (intDay >= 0) && (intDay <= 29))
+		{
+			return true;
+		} else {
+		cout << "Not the correct day!" << endl;
+		system("Pause");
+		return false;
 	}
-
-	return false;
+	} else if (amountOfDays == 28) {
+		if ((isNumber(day)) && (howManyDigits(intDay) >= 1) && (howManyDigits(intDay) <= 2) && (intDay >= 0) && (intDay <= 28))
+		{
+			return true;
+		}
+		else {
+			cout << "Not the correct day!" << endl;
+			system("Pause");
+			return false;
+		}
+	}
+	return false;	
 }
 
 string AuxiliaryMethods::dateDividerYear(string date) {
@@ -146,13 +208,13 @@ string AuxiliaryMethods::dateDividerDay(string date) {
 }
 
 bool AuxiliaryMethods::isRightWholeDate(string date) {
-	string year = AuxiliaryMethods::dateDividerYear(date);
-	string month = AuxiliaryMethods::dateDividerMonth(date);
-	string day = AuxiliaryMethods::dateDividerDay(date);
+	string year = dateDividerYear(date);
+	string month = dateDividerMonth(date);
+	string day = dateDividerDay(date);
 
-	if (AuxiliaryMethods::isRightYear(year) && AuxiliaryMethods::isRightMonth(month) && AuxiliaryMethods::isRightDay(day))
+	if (isRightYear(year) && isRightMonth(month) && isRightDay(year, month, day))
 	{
-		cout << "Right Date!" << endl;
+		//cout << "Right Date!" << endl;
 		return true;
 	}
 
@@ -166,11 +228,11 @@ int AuxiliaryMethods::dateMergerConverter(string date) {
 	string wholeDate = "";
 	int intWholeDate = 0;
 
-	year = AuxiliaryMethods::dateDividerYear(date);
-	month = AuxiliaryMethods::dateDividerMonth(date);
-	day = AuxiliaryMethods::dateDividerDay(date);
+	year = dateDividerYear(date);
+	month = dateDividerMonth(date);
+	day = dateDividerDay(date);
 	wholeDate = year + month + day;
-	intWholeDate = AuxiliaryMethods::convertStringToInt(wholeDate);
+	intWholeDate = convertStringToInt(wholeDate);
 
 	return intWholeDate;
 }
@@ -183,8 +245,6 @@ int AuxiliaryMethods::convertDate(string date) {
 	}
 	return 0;
 }
-
-
 
 string  AuxiliaryMethods::getTodaysDate()
 {

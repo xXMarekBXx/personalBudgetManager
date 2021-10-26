@@ -13,7 +13,7 @@ class AuxiliaryMethods {
 public:
 	
 	static string convertIntToString(int number);
-	static int convertStringToInt(string number);
+	static int convertStringToInt(string number);	
 	static string readLine();
 	static char readChar();
 	static int readInteger();
@@ -23,7 +23,8 @@ public:
 
 	static bool isRightYear(string year);
 	static bool isRightMonth(string month);
-	static bool isRightDay(string day);
+	static bool isRightDay(string year, string month, string day);
+	static int howManyDaysInMonth(int year, int month);
 
 	static string getTodaysDate();
 

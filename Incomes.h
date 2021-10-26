@@ -48,18 +48,13 @@ class IncomesFile
 	   	 
 	bool isIncomesFileExists(string incomesFileName);	
 	//Incomes getAllDataOneSingleUserFromFile();
-	vector <Incomes> loadAllIncomesDataFromFileToVector();
+	vector <Incomes> loadAllIncomesDataFromFileToVector();	
 
-public:
-	int getNewIncomeId();
-	void increaseIncomeId(Incomes incomes);
-
-
-	int getNextIncomeId();
-	int getLastIncomeId();
+public:	
 	IncomesFile(string incomesFileName) : INCOMES_FILE_NAME(incomesFileName) {};	
 	void addIncomeToFile(Incomes incomes);
 	vector <Incomes> loadIncomesFromFile();
+	int returnVectorSize();
 };
 
 

@@ -22,16 +22,15 @@ class UserManager {
 	UsersFile usersFile;	
 	Incomes incomes;
 	vector <Incomes> vectorIncomes;
-	IncomesFile incomesFile;
+	IncomesFile incomesFile;	
 
 	User getNewUserData();
 	int getNewUserId();
 	bool isLoginExist(string login);	
-
-	void getAllDataToIncome();
-	void todayOrAnyOtherDateMenu();
 	
-	string date;
+	void todayOrAnyOtherDateMenu();
+	void getAllDataToTodaysIncome();
+	void getAllDataToSelectedIncome();	
 
 public:	
 	UserManager(string usersFileName, string incomesFileName) : usersFile(usersFileName), incomesFile(incomesFileName) {
