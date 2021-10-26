@@ -91,7 +91,7 @@ bool AuxiliaryMethods::isRightMonth(string month) {
 
 	int intText = convertStringToInt(month);
 
-	if ((isNumber(month)) && (howManyDigits(intText) >= 1) && (howManyDigits(intText) <= 2) && (intText >= 0) && (intText <= 12) && (intText <= currentDate.wMonth))
+	if ((isNumber(month)) && (howManyDigits(intText) >= 1) && (howManyDigits(intText) <= 2) && (intText >= 0) && (intText <= 12))
 	{
 		return true;
 	} else {
