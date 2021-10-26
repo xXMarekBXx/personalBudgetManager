@@ -183,7 +183,7 @@ int UserManager::userloggingOut() {
 	return loggedInUserId;
 }
 
-void UserManager::todayOrAnyOtherDateMenu()
+void UserManager::todayOrAnyOtherDateIncomeMenu()
 {
 	system("cls");
 	cout << "Adding Income" << endl;
@@ -263,13 +263,93 @@ void UserManager::getAllDataToSelectedIncome()
 	incomes.setAmount(amount);
 }
 
+void UserManager::todayOrAnyOtherDateExpenseMenu()
+{
+	system("cls");
+	cout << "Adding Expense" << endl;
+	cout << "1. Add today's expense" << endl;
+	cout << "2. Add expense witch other date" << endl;
+	cout << "Your choice: ";
+
+	int choice;
+	cin.ignore();
+	choice = AuxiliaryMethods::readInteger();
+
+	switch (choice)
+	{
+	case 1:
+		getAllDataToTodaysExpense();
+		expensesFile.addExpenseToFile(expenses);
+		break;
+	case 2:
+		getAllDataToSelectedExpense();
+		expensesFile.addExpenseToFile(expenses);
+		break;
+	default:
+		cout << endl << "There is no such option on the menu." << endl << endl;
+		system("pause");
+		break;
+	}
+}
+
+void UserManager::getAllDataToTodaysExpense()
+{
+	expenses.setUserId(loggedInUserId);
+
+	int newExpenseId = expensesFile.returnVectorSize() + 1;
+	expenses.setExpenseId(newExpenseId);
+
+	expenses.setDate(AuxiliaryMethods::getTodaysDate());
+
+	cout << "Enter the name of the expense: ";
+	string item;
+	item = AuxiliaryMethods::readLine();
+	expenses.setItem(item);
+
+	cout << "Enter the amount of the expense: ";
+	float amount;
+	cin >> amount;
+	expenses.setAmount(amount);
+}
+
+void UserManager::getAllDataToSelectedExpense()
+{
+	expenses.setUserId(loggedInUserId);
+
+	int newExpenseId = expensesFile.returnVectorSize() + 1;
+	expenses.setExpenseId(newExpenseId);
+
+	cout << "Enter the date of the expense in the format: yyyy-mm-dd: " << endl;
+	string date;
+
+	do
+	{
+		cin >> date;
+
+	} while (!AuxiliaryMethods::isRightWholeDate(date));
+
+	AuxiliaryMethods::convertDate(date);
+
+	expenses.setDate(date);
+
+	cout << "Enter the name of the expense: ";
+	string item;
+	cin >> item;
+	expenses.setItem(item);
+
+	cout << "Enter the amount of the expense: ";
+	float amount;
+	cin >> amount;
+	expenses.setAmount(amount);
+}
+
 void UserManager::addIncome() {
 
-	todayOrAnyOtherDateMenu();
+	todayOrAnyOtherDateIncomeMenu();
 }
 
 void UserManager::addExpense() {
-
+	todayOrAnyOtherDateExpenseMenu();
 }
 
 void UserManager::balanceSheetForCurrentMonth() {

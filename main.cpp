@@ -5,7 +5,7 @@ using namespace std;
 
 int main() {
 		
-	PersonalBudgetManager personalBudgetManager("users.xml","incomes.xml");
+	PersonalBudgetManager personalBudgetManager("users.xml","incomes.xml", "expenses.xml");
 
 	while (true)
 	{
@@ -62,7 +62,7 @@ int main() {
 				personalBudgetManager.addIncome();
 				break;
 			case 2:
-				;//personalBudgetManager.addExpense();
+				personalBudgetManager.addExpense();
 				break;
 			case 3:
 				;//personalBudgetManager.balanceSheetForCurrentMonth();
@@ -83,15 +83,3 @@ int main() {
 		}
 	}
 }
-
-/*
-#include "PersonalBudgetManager.h"
-
-int main() {
-
-	PersonalBudgetManager personalBudgetManager("users.xml");
-	personalBudgetManager.userLoggingIn();
-	personalBudgetManager.addIncome();
-
-}
-*/

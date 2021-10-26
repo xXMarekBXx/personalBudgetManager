@@ -1,5 +1,3 @@
-#include <iostream>
-#include <string>
 #include "Incomes.h"
 
 using namespace std;
@@ -131,7 +129,7 @@ vector <Incomes> IncomesFile::loadAllIncomesDataFromFileToVector()
 		xml.FindElem("amount");
 		string amount;
 		amount = xml.GetData();
-		incomes.setAmount(AuxiliaryMethods::convertStringToInt(incomeId));		
+		incomes.setAmount(AuxiliaryMethods::convertStringToInt(amount));
 
 		vectorIncomes.push_back(incomes);
 		xml.OutOfElem();

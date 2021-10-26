@@ -23,20 +23,28 @@ class UserManager {
 	Incomes incomes;
 	vector <Incomes> vectorIncomes;
 	IncomesFile incomesFile;	
+	Expenses expenses;
+	vector <Expenses> vectorExpenses;
+	ExpensesFile expensesFile;
 
 	User getNewUserData();
 	int getNewUserId();
 	bool isLoginExist(string login);	
 	
-	void todayOrAnyOtherDateMenu();
+	void todayOrAnyOtherDateIncomeMenu();
 	void getAllDataToTodaysIncome();
 	void getAllDataToSelectedIncome();	
 
+	void todayOrAnyOtherDateExpenseMenu();
+	void getAllDataToTodaysExpense();
+	void getAllDataToSelectedExpense();
+
 public:	
-	UserManager(string usersFileName, string incomesFileName) : usersFile(usersFileName), incomesFile(incomesFileName) {
+	UserManager(string usersFileName, string incomesFileName, string expensesFileName) : usersFile(usersFileName), incomesFile(incomesFileName), expensesFile(expensesFileName) {
 		loggedInUserId = 0;
 		users = usersFile.loadUsersFromFile();
 		vectorIncomes = incomesFile.loadIncomesFromFile();
+		vectorExpenses = expensesFile.loadExpensesFromFile();
 	};
 	
 	void changePasswordInFile(string newPassword);
