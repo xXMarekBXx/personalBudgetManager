@@ -219,17 +219,21 @@ void UserManager::getAllDataToTodaysIncome()
 	int newIncomeId = incomesFile.returnVectorSize() + 1;
 	incomes.setIncomeId(newIncomeId);
 	
-	incomes.setDate(AuxiliaryMethods::getTodaysDate());
-
+	//incomes.setDate(AuxiliaryMethods::getTodaysDate());
+	string stringDate;
+	stringDate = AuxiliaryMethods::getTodaysDate();
+	int intDate = AuxiliaryMethods::convertDate(stringDate);
+	incomes.setDate(intDate);	
+	
 	cout << "Enter the name of the income: ";
 	string item;
 	item = AuxiliaryMethods::readLine();	
-	incomes.setItem(item);
+	incomes.setItem(item);	
 
 	cout << "Enter the amount of the income: ";
-	float amount;
+	int amount;
 	cin >> amount;	
-	incomes.setAmount(amount);
+	incomes.setAmount(amount);	
 }
 
 void UserManager::getAllDataToSelectedIncome()
@@ -247,10 +251,11 @@ void UserManager::getAllDataToSelectedIncome()
 		cin >> date;
 
 	} while (!AuxiliaryMethods::isRightWholeDate(date));	
-
-	AuxiliaryMethods::convertDate(date);
 	
-	incomes.setDate(date);	
+	//incomes.setDate(date);
+	int intDate;
+	intDate = AuxiliaryMethods::convertDate(date);	
+	incomes.setDate(intDate);			
 
 	cout << "Enter the name of the income: ";
 	string item;
@@ -258,7 +263,7 @@ void UserManager::getAllDataToSelectedIncome()
 	incomes.setItem(item);
 
 	cout << "Enter the amount of the income: ";
-	float amount;
+	int amount;
 	cin >> amount;	
 	incomes.setAmount(amount);
 }
@@ -299,7 +304,11 @@ void UserManager::getAllDataToTodaysExpense()
 	int newExpenseId = expensesFile.returnVectorSize() + 1;
 	expenses.setExpenseId(newExpenseId);
 
-	expenses.setDate(AuxiliaryMethods::getTodaysDate());
+	//expenses.setDate(AuxiliaryMethods::getTodaysDate());	
+	string stringDate;
+	stringDate = AuxiliaryMethods::getTodaysDate();
+	int intDate = AuxiliaryMethods::convertDate(stringDate);
+	expenses.setDate(intDate);	
 
 	cout << "Enter the name of the expense: ";
 	string item;
@@ -307,7 +316,7 @@ void UserManager::getAllDataToTodaysExpense()
 	expenses.setItem(item);
 
 	cout << "Enter the amount of the expense: ";
-	float amount;
+	int amount;
 	cin >> amount;
 	expenses.setAmount(amount);
 }
@@ -319,7 +328,7 @@ void UserManager::getAllDataToSelectedExpense()
 	int newExpenseId = expensesFile.returnVectorSize() + 1;
 	expenses.setExpenseId(newExpenseId);
 
-	cout << "Enter the date of the expense in the format: yyyy-mm-dd: " << endl;
+	cout << "Enter the date of the income in the format: yyyy-mm-dd: " << endl;
 	string date;
 
 	do
@@ -328,9 +337,10 @@ void UserManager::getAllDataToSelectedExpense()
 
 	} while (!AuxiliaryMethods::isRightWholeDate(date));
 
-	AuxiliaryMethods::convertDate(date);
-
-	expenses.setDate(date);
+	//expenses.setDate(date);
+	int intDate;
+	intDate = AuxiliaryMethods::convertDate(date);
+	expenses.setDate(intDate);
 
 	cout << "Enter the name of the expense: ";
 	string item;
@@ -338,7 +348,7 @@ void UserManager::getAllDataToSelectedExpense()
 	expenses.setItem(item);
 
 	cout << "Enter the amount of the expense: ";
-	float amount;
+	int amount;
 	cin >> amount;
 	expenses.setAmount(amount);
 }

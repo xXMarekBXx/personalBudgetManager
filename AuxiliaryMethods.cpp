@@ -254,17 +254,102 @@ string  AuxiliaryMethods::getTodaysDate()
 	string day = "";
 
 	SYSTEMTIME currentDate;
-	GetSystemTime(&currentDate);
-
-	cout << endl;
-	cout << "Today's date: " << currentDate.wYear << "-" << currentDate.wMonth << "-" << currentDate.wDay << endl;
+	GetSystemTime(&currentDate);	
 
 	year = to_string(currentDate.wYear);
 	month = to_string(currentDate.wMonth);
 	day = to_string(currentDate.wDay);
 
-	date = year + "-" + month + "-" + day;
-	cout << date << endl;
-	
+	int intMonth;
+	intMonth = convertStringToInt(month);
+	string stringMonth;
+	string monthWitchZero;
+
+	int intDay;
+	intDay = convertStringToInt(day);
+	string stringDay;
+	string dayWitchZero;
+
+	if (howManyDigits(intMonth) == 1)
+	{
+		
+		stringMonth = convertIntToString(intMonth);
+		monthWitchZero = "0" + stringMonth;
+		date = year + "-" + monthWitchZero + "-" + day;		
+	}
+	else {
+		date = year + "-" + month + "-" + day;		
+	}	
+
+	if (howManyDigits(intDay) == 1)
+	{
+		stringDay = convertIntToString(intDay);
+		dayWitchZero = "0" + stringDay;
+		date = year + "-" + month + "-" + dayWitchZero;
+	}
+	else {
+		date = year + "-" + month + "-" + day;		
+	}
+
+	cout << endl;
+	cout << "Today's date: " << date << endl;
+
 	return date;
+}
+
+string AuxiliaryMethods::dateConnectorYear(string date)
+{
+	string year;
+	string yearWithHyphen;
+
+	for (int i = 0; i < 4; i++)
+	{
+		year += date[i];
+	}
+	yearWithHyphen = year + "-";
+
+	return yearWithHyphen;
+}
+
+string AuxiliaryMethods::dateConnectorMonth(string date)
+{
+	string month;
+	string monthWithHyphen;
+
+	for (int i = 4; i < 6; i++)
+	{
+		month += date[i];
+	}
+
+	monthWithHyphen = month + "-";
+	return monthWithHyphen;
+}
+
+string AuxiliaryMethods::dateConnectorDay(string date)
+{
+	string day;	
+
+	for (int i = 6; i < 8; i++)
+	{
+		day += date[i];
+	}
+
+	return day;
+}
+
+string AuxiliaryMethods::dateConnectorConverter(int intDate)
+{
+	string stringDate;
+	string year = "";
+	string month = "";
+	string day = "";
+	string wholeDate = "";
+
+	stringDate = convertIntToString(intDate);
+
+	year = dateConnectorYear(stringDate);
+	month = dateConnectorMonth(stringDate);
+	day = dateConnectorDay(stringDate);
+	wholeDate = year + month + day;
+	return wholeDate;
 }

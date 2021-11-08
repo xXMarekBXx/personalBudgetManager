@@ -17,20 +17,20 @@ class Expenses {
 
 	int userId;
 	int expenseId;	
-	string date;
+	int date;
 	string item;
 	int amount;
 
 public:
 	void setUserId(int newUserId);
 	void setExpenseId(int newExpenseId);	
-	void setDate(string newDate);
+	void setDate(int newDate);
 	void setItem(string newItem);
 	void setAmount(int newAmount);
 
 	int getUserId();
 	int getExpenseId();	
-	string getDate();
+	int getDate();
 	string getItem();
 	int getAmount();
 };

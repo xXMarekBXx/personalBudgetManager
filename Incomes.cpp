@@ -12,13 +12,13 @@ void Incomes::setIncomeId(int newIncomeId) {
 	if (newIncomeId >= 0)
 		incomeId = newIncomeId;
 }
-void Incomes::setDate(string newDate) {
+void Incomes::setDate(int newDate) {
 	date = newDate;
 }
 void Incomes::setItem(string newItem) {
 	item = newItem;
 }
-void Incomes::setAmount(float newAmount) {
+void Incomes::setAmount(int newAmount) {
 	amount = newAmount;
 }
 
@@ -30,13 +30,13 @@ int Incomes::getUserId() {
 int Incomes::getIncomeId() {
 	return incomeId;
 }
-string Incomes::getDate() {
+int Incomes::getDate() {
 	return date;
 }
 string Incomes::getItem() {
 	return item;
 }
-float Incomes::getAmount() {
+int Incomes::getAmount() {
 	return amount;
 }
 
@@ -67,8 +67,8 @@ int IncomesFile::returnVectorSize()
 	}
 }
 
-void IncomesFile::addIncomeToFile(Incomes incomes) {
-	
+void IncomesFile::addIncomeToFile(Incomes incomes) {	
+
 	if (isIncomesFileExists(INCOMES_FILE_NAME) == true)
 		xml.Load(INCOMES_FILE_NAME);
 	else if (!isIncomesFileExists(INCOMES_FILE_NAME))
@@ -82,8 +82,15 @@ void IncomesFile::addIncomeToFile(Incomes incomes) {
 	xml.AddElem("Income");
 	xml.IntoElem();
 	xml.AddElem("userId", incomes.getUserId());		
-	xml.AddElem("incomeId", incomes.getIncomeId());	
-	xml.AddElem("date", incomes.getDate());
+	xml.AddElem("incomeId", incomes.getIncomeId());
+
+	//xml.AddElem("date", incomes.getDate());	
+	int intDate;
+	intDate = incomes.getDate();
+	string stringDate;
+	stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
+	xml.AddElem("date", stringDate);
+
 	xml.AddElem("item", incomes.getItem());
 	xml.AddElem("amount", incomes.getAmount());
 
@@ -117,9 +124,12 @@ vector <Incomes> IncomesFile::loadAllIncomesDataFromFileToVector()
 		incomes.setIncomeId(AuxiliaryMethods::convertStringToInt(incomeId));
 
 		xml.FindElem("date");
-		string date;
-		date = xml.GetData();
-		incomes.setDate(date);
+		string stringDate;
+		stringDate = xml.GetData();
+		//incomes.setDate(date);
+		int intDate;
+		intDate = AuxiliaryMethods::convertDate(stringDate);
+		incomes.setDate(intDate);
 
 		xml.FindElem("item");
 		string item;

@@ -12,7 +12,7 @@ void Expenses::setUserId(int newId) {
 	if (newId >= 0)
 		userId = newId;
 }
-void Expenses::setDate(string newDate) {
+void Expenses::setDate(int newDate) {
 	date = newDate;
 }
 void Expenses::setItem(string newItem) {
@@ -30,7 +30,7 @@ int Expenses::getExpenseId() {
 int Expenses::getUserId() {
 	return userId;
 }
-string Expenses::getDate() {
+int Expenses::getDate() {
 	return date;
 }
 string Expenses::getItem() {
@@ -83,7 +83,14 @@ void ExpensesFile::addExpenseToFile(Expenses expenses) {
 	xml.IntoElem();
 	xml.AddElem("userId", expenses.getUserId());
 	xml.AddElem("expenseId", expenses.getExpenseId());
-	xml.AddElem("date", expenses.getDate());
+
+	//xml.AddElem("date", expenses.getDate());
+	int intDate;
+	intDate = expenses.getDate();	
+	string stringDate;
+	stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);	
+	xml.AddElem("date", stringDate);
+	
 	xml.AddElem("item", expenses.getItem());
 	xml.AddElem("amount", expenses.getAmount());
 
@@ -117,10 +124,13 @@ vector <Expenses> ExpensesFile::loadAllExpensesDataFromFileToVector()
 		expenses.setExpenseId(AuxiliaryMethods::convertStringToInt(expenseId));
 
 		xml.FindElem("date");
-		string date;
-		date = xml.GetData();
-		expenses.setDate(date);
-
+		string stringDate;
+		stringDate = xml.GetData();
+		//expenses.setDate(date);
+		int intDate;
+		intDate = AuxiliaryMethods::convertDate(stringDate);
+		expenses.setDate(intDate);
+		
 		xml.FindElem("item");
 		string item;
 		item = xml.GetData();
