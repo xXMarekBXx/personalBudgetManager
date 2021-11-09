@@ -34,7 +34,11 @@ void PersonalBudgetManager::addExpense() {
 void PersonalBudgetManager::balanceSheetForCurrentMonth() {
 	userManager.balanceSheetForCurrentMonth();
 }
-
+/////////////////////////////////////////////////////////////////////////
+void PersonalBudgetManager::showAllIncomes() {
+	userManager.showAllIncomes();
+}
+/////////////////////////////////////////////////////////////////////
 void PersonalBudgetManager::balanceSheetForLatestMonth() {
 	userManager.balanceSheetForLatestMonth();
 }

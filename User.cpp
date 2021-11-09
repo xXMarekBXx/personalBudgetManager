@@ -57,6 +57,7 @@ bool UsersFile::isUsersFileExists(string usersFileName) {
 }
 
 void UsersFile::addUserToFile(User user) {
+
 	if(isUsersFileExists(USERS_FILE_NAME)==true)
 	xml.Load(USERS_FILE_NAME);
 	else if (!isUsersFileExists(USERS_FILE_NAME))

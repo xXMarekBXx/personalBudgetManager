@@ -82,28 +82,27 @@ void IncomesFile::addIncomeToFile(Incomes incomes) {
 	xml.AddElem("Income");
 	xml.IntoElem();
 	xml.AddElem("userId", incomes.getUserId());		
-	xml.AddElem("incomeId", incomes.getIncomeId());
-
-	//xml.AddElem("date", incomes.getDate());	
-	int intDate;
-	intDate = incomes.getDate();
-	string stringDate;
-	stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
+	xml.AddElem("incomeId", incomes.getIncomeId());	
+	
+	int intDate = 0;
+	intDate = incomes.getDate();	
+	string stringDate ="";		
+	stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);	
 	xml.AddElem("date", stringDate);
 
 	xml.AddElem("item", incomes.getItem());
 	xml.AddElem("amount", incomes.getAmount());
+		
 
 	xml.Save("incomes.xml");
 	
-	vectorIncomes.push_back(incomes);
+	//vectorIncomes.push_back(incomes);
 	
 	cout << "Income added" << endl;
 	system("Pause");
 }
 
-vector <Incomes> IncomesFile::loadAllIncomesDataFromFileToVector()
-{
+vector <Incomes> IncomesFile::loadAllIncomesDataFromFileToVector() {
 	xml.Load("incomes.xml");
 
 	xml.FindElem("Incomes");
@@ -125,8 +124,7 @@ vector <Incomes> IncomesFile::loadAllIncomesDataFromFileToVector()
 
 		xml.FindElem("date");
 		string stringDate;
-		stringDate = xml.GetData();
-		//incomes.setDate(date);
+		stringDate = xml.GetData();		
 		int intDate;
 		intDate = AuxiliaryMethods::convertDate(stringDate);
 		incomes.setDate(intDate);
@@ -140,13 +138,12 @@ vector <Incomes> IncomesFile::loadAllIncomesDataFromFileToVector()
 		string amount;
 		amount = xml.GetData();
 		incomes.setAmount(AuxiliaryMethods::convertStringToInt(amount));
-
+				
 		vectorIncomes.push_back(incomes);
 		xml.OutOfElem();
 	}
 	return vectorIncomes;
 }
-
 
 vector <Incomes> IncomesFile::loadIncomesFromFile() {
 	loadAllIncomesDataFromFileToVector();

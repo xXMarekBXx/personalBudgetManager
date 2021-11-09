@@ -2,6 +2,7 @@
 #define USERMANAGER_HH
 
 #include <iostream>
+#include <algorithm>
 #include <vector>
 #include <string>
 #include <fstream>
@@ -60,6 +61,10 @@ public:
 	void balanceSheetForCurrentMonth();
 	void balanceSheetForLatestMonth();
 	void balanceSheetForSelectedPeriod();
+
+	/////////////////////////////////////////////////
+	void loadFromFile();
+	void showAllIncomes();
 };
 
 #endif

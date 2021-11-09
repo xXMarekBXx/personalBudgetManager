@@ -157,8 +157,7 @@ void UserManager::changePasswordInFile(string newPassword) {
 }
 
 void UserManager::loggedInUserPasswordChanging() {
-	User user;
-
+	
 	string newPassword = "";
 
 	cout << "Enter new password: ";
@@ -198,11 +197,13 @@ void UserManager::todayOrAnyOtherDateIncomeMenu()
 	switch (choice)
 	{
 	case 1:
-		getAllDataToTodaysIncome();
+		getAllDataToTodaysIncome();//tu problem
+		vectorIncomes.push_back(incomes);
 		incomesFile.addIncomeToFile(incomes);		
 		break;
 	case 2:
 		getAllDataToSelectedIncome();
+		vectorIncomes.push_back(incomes);
 		incomesFile.addIncomeToFile(incomes);
 		break;
 	default:
@@ -218,8 +219,7 @@ void UserManager::getAllDataToTodaysIncome()
 
 	int newIncomeId = incomesFile.returnVectorSize() + 1;
 	incomes.setIncomeId(newIncomeId);
-	
-	//incomes.setDate(AuxiliaryMethods::getTodaysDate());
+		
 	string stringDate;
 	stringDate = AuxiliaryMethods::getTodaysDate();
 	int intDate = AuxiliaryMethods::convertDate(stringDate);
@@ -233,7 +233,7 @@ void UserManager::getAllDataToTodaysIncome()
 	cout << "Enter the amount of the income: ";
 	int amount;
 	cin >> amount;	
-	incomes.setAmount(amount);	
+	incomes.setAmount(amount);		
 }
 
 void UserManager::getAllDataToSelectedIncome()
@@ -284,7 +284,7 @@ void UserManager::todayOrAnyOtherDateExpenseMenu()
 	{
 	case 1:
 		getAllDataToTodaysExpense();
-		expensesFile.addExpenseToFile(expenses);
+		expensesFile.addExpenseToFile(expenses);		
 		break;
 	case 2:
 		getAllDataToSelectedExpense();
@@ -360,6 +360,70 @@ void UserManager::addIncome() {
 
 void UserManager::addExpense() {
 	todayOrAnyOtherDateExpenseMenu();
+}
+
+void UserManager::loadFromFile() {		
+	xml.Load("incomes.xml");
+
+	xml.FindElem("Incomes");
+	xml.IntoElem();
+
+	while (xml.FindElem("Income"))
+	{
+		xml.IntoElem();
+
+		xml.FindElem("userId");
+		string userId;
+		userId = xml.GetData();
+
+		int intUserId;
+		intUserId = AuxiliaryMethods::convertStringToInt(userId);
+
+		if (intUserId == loggedInUserId) {
+			xml.FindElem("date");
+			string date;
+			date = xml.GetData();
+			cout << "Data: " << date << endl;
+
+			xml.FindElem("item");
+			string item;
+			item = xml.GetData();
+			cout << "item: " << item << endl;
+
+			xml.FindElem("amount");
+			string amount;
+			amount = xml.GetData();
+			cout << "amount: " << amount << endl << endl;
+		}
+		xml.OutOfElem();
+	}
+	
+}
+
+void UserManager::showAllIncomes() {			
+	system("cls");
+	cout << "Incomes list" << endl;
+	cout << "-------------------------" << endl;
+		
+	for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++)
+	{
+		if (itr->getUserId() == loggedInUserId)
+		{
+			int intDate = 0;
+			intDate = itr->getDate();
+			string stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
+			cout << "Data: " << stringDate << endl;
+
+			string item = "";
+			item = itr->getItem();
+			cout << "item: " << item << endl;
+
+			int amount = 0;
+			amount = itr->getAmount();
+			cout << "amount: " << amount << endl << endl;
+		}
+	}
+	system("Pause");
 }
 
 void UserManager::balanceSheetForCurrentMonth() {

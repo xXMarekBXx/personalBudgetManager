@@ -45,7 +45,8 @@ int main() {
 			cout << "---------------------------" << endl;
 			cout << "1. Add Income" << endl;
 			cout << "2. Add an Expense" << endl;
-			cout << "3. Balance sheet for the current month" << endl;
+			//cout << "3. Balance sheet for the current month" << endl;
+			cout << "3. Show All Incomes" << endl;
 			cout << "4. Balance sheet for the latest month" << endl;
 			cout << "5. Balance sheet for the selected period" << endl;
 			cout << "---------------------------" << endl;			
@@ -65,7 +66,8 @@ int main() {
 				personalBudgetManager.addExpense();
 				break;
 			case 3:
-				;//personalBudgetManager.balanceSheetForCurrentMonth();
+				personalBudgetManager.showAllIncomes();
+				//personalBudgetManager.balanceSheetForCurrentMonth();
 				break;
 			case 4:
 				;//personalBudgetManager.balanceSheetForLatestMonth();

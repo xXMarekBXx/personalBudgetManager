@@ -13,7 +13,7 @@ class PersonalBudgetManager {
 	const string EXPENSES_FILE_NAME = "expenses.xml";
 	UserManager userManager;
 	IncomesFile *incomesFile;
-	ExpensesFile *expensesFile;
+	ExpensesFile *expensesFile;		
 
 public:
 	PersonalBudgetManager(string usersFileName, string incomesFileName, string expensesFileName)
@@ -40,6 +40,10 @@ public:
 	void addIncome();
 	void addExpense();
 	void balanceSheetForCurrentMonth();
+
+	void showAllIncomes();
+
+
 	void balanceSheetForLatestMonth();
 	void balanceSheetForSelectedPeriod();
 };
