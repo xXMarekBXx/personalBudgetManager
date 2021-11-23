@@ -41,8 +41,7 @@ public:
 	void addExpense();
 	void balanceSheetForCurrentMonth();
 
-	void showAllIncomes();
-
+	void showAllSortedIncomes();
 
 	void balanceSheetForLatestMonth();
 	void balanceSheetForSelectedPeriod();

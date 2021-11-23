@@ -35,8 +35,8 @@ void PersonalBudgetManager::balanceSheetForCurrentMonth() {
 	userManager.balanceSheetForCurrentMonth();
 }
 /////////////////////////////////////////////////////////////////////////
-void PersonalBudgetManager::showAllIncomes() {
-	userManager.showAllIncomes();
+void PersonalBudgetManager::showAllSortedIncomes() {
+	userManager.showAllSortedIncomes();
 }
 /////////////////////////////////////////////////////////////////////
 void PersonalBudgetManager::balanceSheetForLatestMonth() {

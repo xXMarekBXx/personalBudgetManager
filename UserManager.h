@@ -64,7 +64,7 @@ public:
 
 	/////////////////////////////////////////////////
 	void loadFromFile();
-	void showAllIncomes();
+	void showAllSortedIncomes();
 };
 
 #endif

@@ -66,7 +66,7 @@ int main() {
 				personalBudgetManager.addExpense();
 				break;
 			case 3:
-				personalBudgetManager.showAllIncomes();
+				personalBudgetManager.showAllSortedIncomes();
 				//personalBudgetManager.balanceSheetForCurrentMonth();
 				break;
 			case 4:

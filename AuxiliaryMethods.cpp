@@ -353,3 +353,25 @@ string AuxiliaryMethods::dateConnectorConverter(int intDate)
 	wholeDate = year + month + day;
 	return wholeDate;
 }
+
+void AuxiliaryMethods::quickSort(int *tab, int left, int right)
+{
+	if (right <= left) return;
+
+	int i = left - 1, j = right + 1,
+		pivot = tab[(left + right) / 2];
+
+	while (true)
+	{
+		while (pivot > tab[++i]);
+		while (pivot < tab[--j]);
+		if (i <= j)		
+			swap(tab[i], tab[j]);
+		else
+			break;
+	}
+	if (j > left)
+		quickSort(tab, left, j);
+	if (i < right)
+		quickSort(tab, i, right);
+}

@@ -41,6 +41,8 @@ public:
 	static int dateMergerConverter(string date);
 	static int convertDate(string date);
 	static string dateConnectorConverter(int intDate);
+
+	static void quickSort(int *tab, int left, int right);
 	
 };
 

@@ -217,8 +217,10 @@ void UserManager::getAllDataToTodaysIncome()
 {	
 	incomes.setUserId(loggedInUserId);	
 
-	int newIncomeId = incomesFile.returnVectorSize() + 1;
-	incomes.setIncomeId(newIncomeId);
+	int newIncomeId = 0;	
+	newIncomeId = incomesFile.returnVectorSize();	
+	newIncomeId++;	
+	incomes.setIncomeId(newIncomeId);	
 		
 	string stringDate;
 	stringDate = AuxiliaryMethods::getTodaysDate();
@@ -400,29 +402,62 @@ void UserManager::loadFromFile() {
 	
 }
 
-void UserManager::showAllIncomes() {			
+void UserManager::showAllSortedIncomes() {
+		
 	system("cls");
 	cout << "Incomes list" << endl;
 	cout << "-------------------------" << endl;
-		
+
+	int size = 0;
 	for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++)
 	{
 		if (itr->getUserId() == loggedInUserId)
 		{
-			int intDate = 0;
-			intDate = itr->getDate();
-			string stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
-			cout << "Data: " << stringDate << endl;
-
-			string item = "";
-			item = itr->getItem();
-			cout << "item: " << item << endl;
-
-			int amount = 0;
-			amount = itr->getAmount();
-			cout << "amount: " << amount << endl << endl;
+			size++;
 		}
 	}
+
+	int *tab;
+	tab = new int[size];	
+	int placeInDateArray = 0;
+		
+	for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++)
+	{
+		if (itr->getUserId() == loggedInUserId)
+		{	
+			int intDate = itr->getDate();
+			tab[placeInDateArray] = intDate;
+			placeInDateArray++;
+		}			
+	}		
+
+	AuxiliaryMethods::quickSort(tab, 0, size-1);	
+
+	for (int i = 0; i < size; i++)
+	{
+		for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++)
+		{
+			if (itr->getUserId() == loggedInUserId)
+			{
+				if (itr->getDate() == tab[i])
+				{
+					int intDate = itr->getDate();
+					string stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
+					cout << "Data: " << stringDate << endl;
+
+					string item = "";
+					item = itr->getItem();
+					cout << "item: " << item << endl;
+
+					int amount = 0;
+					amount = itr->getAmount();
+					cout << "amount: " << amount << endl << endl;
+				}
+			}
+		}
+	}
+
+	delete[] tab;
 	system("Pause");
 }
 
