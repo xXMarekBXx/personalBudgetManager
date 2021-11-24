@@ -57,14 +57,14 @@ public:
 	bool isUserLoggedIn();
 	void showAllUsers();	
 	void addIncome();
-	void addExpense();
+	void addExpense();	
+	void loadFromFile();
+	int showAllSortedIncomes();
+	int showAllSortedExpenses();
 	void balanceSheetForCurrentMonth();
+
 	void balanceSheetForLatestMonth();
 	void balanceSheetForSelectedPeriod();
-
-	/////////////////////////////////////////////////
-	void loadFromFile();
-	void showAllSortedIncomes();
 };
 
 #endif

@@ -39,9 +39,11 @@ public:
 	bool isUserLoggedIn();
 	void addIncome();
 	void addExpense();
-	void balanceSheetForCurrentMonth();
+	void displayBalanceSheetForCurrentMonth();
 
 	void showAllSortedIncomes();
+	void showAllSortedExpenses();
+	void displayBalanceSheet();
 
 	void balanceSheetForLatestMonth();
 	void balanceSheetForSelectedPeriod();
