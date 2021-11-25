@@ -32,11 +32,11 @@ void PersonalBudgetManager::addExpense() {
 }
 
 void PersonalBudgetManager::showAllSortedIncomes() {
-	userManager.showAllSortedIncomes();
+	userManager.showAllSortedIncomesForCurrentMonth();
 }
 
 void PersonalBudgetManager::showAllSortedExpenses() {
-	userManager.showAllSortedExpenses();
+	userManager.showAllSortedExpensesForCurrentMonth();
 }
 
 void PersonalBudgetManager::displayBalanceSheetForCurrentMonth() {

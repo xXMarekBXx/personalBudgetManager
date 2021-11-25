@@ -33,10 +33,12 @@ class UserManager {
 	bool isLoginExist(string login);	
 	
 	void todayOrAnyOtherDateIncomeMenu();
-	void getAllDataToTodaysIncome();
+	int getNewIncomesId();
+	void getAllDataToTodaysIncome();		
 	void getAllDataToSelectedIncome();	
 
 	void todayOrAnyOtherDateExpenseMenu();
+	int getNewExpensesId();
 	void getAllDataToTodaysExpense();
 	void getAllDataToSelectedExpense();
 
@@ -59,11 +61,17 @@ public:
 	void addIncome();
 	void addExpense();	
 	void loadFromFile();
-	int showAllSortedIncomes();
-	int showAllSortedExpenses();
+	int showAllSortedIncomesForCurrentMonth();
+	int showAllSortedExpensesForCurrentMonth();
 	void balanceSheetForCurrentMonth();
 
+
+
+	int showAllSortedIncomesForLatestMonth();
 	void balanceSheetForLatestMonth();
+
+
+
 	void balanceSheetForSelectedPeriod();
 };
 

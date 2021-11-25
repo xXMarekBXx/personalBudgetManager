@@ -197,14 +197,14 @@ void UserManager::todayOrAnyOtherDateIncomeMenu()
 	switch (choice)
 	{
 	case 1:
-		getAllDataToTodaysIncome();//tu problem
+		getAllDataToTodaysIncome();
 		vectorIncomes.push_back(incomes);
-		incomesFile.addIncomeToFile(incomes);		
+		incomesFile.addIncomeToFile(incomes);			
 		break;
 	case 2:
 		getAllDataToSelectedIncome();
 		vectorIncomes.push_back(incomes);
-		incomesFile.addIncomeToFile(incomes);
+		incomesFile.addIncomeToFile(incomes);		
 		break;
 	default:
 		cout << endl << "There is no such option on the menu." << endl << endl;
@@ -213,14 +213,18 @@ void UserManager::todayOrAnyOtherDateIncomeMenu()
 	}
 }
 
-void UserManager::getAllDataToTodaysIncome()
-{	
-	incomes.setUserId(loggedInUserId);	
+int UserManager::getNewIncomesId() {	
+	if (vectorIncomes.empty())
+		return 1;
+	else {				
+		return vectorIncomes.back().getIncomeId() + 1;
+	}
+}
 
-	int newIncomeId = 0;	
-	newIncomeId = incomesFile.returnVectorSize();	
-	newIncomeId++;	
-	incomes.setIncomeId(newIncomeId);	
+void UserManager::getAllDataToTodaysIncome() {		
+
+	incomes.setUserId(loggedInUserId);
+	incomes.setIncomeId(getNewIncomesId());
 		
 	string stringDate;
 	stringDate = AuxiliaryMethods::getTodaysDate();
@@ -235,15 +239,13 @@ void UserManager::getAllDataToTodaysIncome()
 	cout << "Enter the amount of the income: ";
 	int amount;
 	cin >> amount;	
-	incomes.setAmount(amount);		
+	incomes.setAmount(amount);	
 }
 
-void UserManager::getAllDataToSelectedIncome()
-{
-	incomes.setUserId(loggedInUserId);
+void UserManager::getAllDataToSelectedIncome() {
 
-	int newIncomeId = incomesFile.returnVectorSize() + 1;
-	incomes.setIncomeId(newIncomeId);
+	incomes.setUserId(loggedInUserId);
+	incomes.setIncomeId(getNewIncomesId());
 
 	cout << "Enter the date of the income in the format: yyyy-mm-dd: " << endl;
 	string date;
@@ -253,8 +255,7 @@ void UserManager::getAllDataToSelectedIncome()
 		cin >> date;
 
 	} while (!AuxiliaryMethods::isRightWholeDate(date));	
-	
-	//incomes.setDate(date);
+
 	int intDate;
 	intDate = AuxiliaryMethods::convertDate(date);	
 	incomes.setDate(intDate);			
@@ -286,10 +287,12 @@ void UserManager::todayOrAnyOtherDateExpenseMenu()
 	{
 	case 1:
 		getAllDataToTodaysExpense();
+		vectorExpenses.push_back(expenses);
 		expensesFile.addExpenseToFile(expenses);		
 		break;
 	case 2:
 		getAllDataToSelectedExpense();
+		vectorExpenses.push_back(expenses);
 		expensesFile.addExpenseToFile(expenses);
 		break;
 	default:
@@ -299,14 +302,19 @@ void UserManager::todayOrAnyOtherDateExpenseMenu()
 	}
 }
 
-void UserManager::getAllDataToTodaysExpense()
-{
+int UserManager::getNewExpensesId() {
+	if (vectorExpenses.empty())
+		return 1;
+	else {
+		return vectorExpenses.back().getExpenseId() + 1;
+	}
+}
+
+void UserManager::getAllDataToTodaysExpense() {	
+	
 	expenses.setUserId(loggedInUserId);
+	expenses.setExpenseId(getNewExpensesId());
 
-	int newExpenseId = expensesFile.returnVectorSize() + 1;
-	expenses.setExpenseId(newExpenseId);
-
-	//expenses.setDate(AuxiliaryMethods::getTodaysDate());	
 	string stringDate;
 	stringDate = AuxiliaryMethods::getTodaysDate();
 	int intDate = AuxiliaryMethods::convertDate(stringDate);
@@ -323,12 +331,10 @@ void UserManager::getAllDataToTodaysExpense()
 	expenses.setAmount(amount);
 }
 
-void UserManager::getAllDataToSelectedExpense()
-{
-	expenses.setUserId(loggedInUserId);
+void UserManager::getAllDataToSelectedExpense() {
 
-	int newExpenseId = expensesFile.returnVectorSize() + 1;
-	expenses.setExpenseId(newExpenseId);
+	expenses.setUserId(loggedInUserId);
+	expenses.setExpenseId(getNewExpensesId());
 
 	cout << "Enter the date of the income in the format: yyyy-mm-dd: " << endl;
 	string date;
@@ -338,8 +344,7 @@ void UserManager::getAllDataToSelectedExpense()
 		cin >> date;
 
 	} while (!AuxiliaryMethods::isRightWholeDate(date));
-
-	//expenses.setDate(date);
+	
 	int intDate;
 	intDate = AuxiliaryMethods::convertDate(date);
 	expenses.setDate(intDate);
@@ -402,7 +407,7 @@ void UserManager::loadFromFile() {
 	
 }
 
-int UserManager::showAllSortedIncomes() {
+int UserManager::showAllSortedIncomesForCurrentMonth() {
 		
 	system("cls");
 	cout << "Incomes list" << endl;
@@ -446,7 +451,7 @@ int UserManager::showAllSortedIncomes() {
 					int intDate = itr->getDate();
 					string stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
 					checkedMonth = AuxiliaryMethods::dateDividerMonth(stringDate);
-					checkedYear = AuxiliaryMethods::dateDividerYear(stringDate);
+					checkedYear = AuxiliaryMethods::dateDividerYear(stringDate);					
 					if ((checkedMonth == currentMonth)&&(checkedYear == currentYear)) {
 						cout << "Data: " << stringDate << endl;
 
@@ -468,7 +473,7 @@ int UserManager::showAllSortedIncomes() {
 	return sum;
 }
 
-int UserManager::showAllSortedExpenses() {
+int UserManager::showAllSortedExpensesForCurrentMonth() {
 		
 	cout << "Expenses list" << endl;
 	cout << "-------------------------" << endl;
@@ -535,11 +540,11 @@ int UserManager::showAllSortedExpenses() {
 
 void UserManager::balanceSheetForCurrentMonth() {
 
-	showAllSortedIncomes();
-	showAllSortedExpenses();
+	showAllSortedIncomesForCurrentMonth();
+	showAllSortedExpensesForCurrentMonth();
 
-	int incomesSum = showAllSortedIncomes();
-	int expensesSum = showAllSortedExpenses();
+	int incomesSum = showAllSortedIncomesForCurrentMonth();
+	int expensesSum = showAllSortedExpensesForCurrentMonth();
 	int balance = incomesSum - expensesSum;
 
 	cout << endl;
@@ -554,8 +559,79 @@ void UserManager::balanceSheetForCurrentMonth() {
 	system("pause");
 }
 
+int UserManager::showAllSortedIncomesForLatestMonth() {
+
+	system("cls");
+	cout << "Incomes list" << endl;
+	cout << "-------------------------" << endl;
+
+	int size = 0;
+	for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++) {
+		if (itr->getUserId() == loggedInUserId) {
+			size++;
+		}
+	}
+
+	int *tab;
+	tab = new int[size];
+	int placeInDateArray = 0;
+
+	for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++) {
+		if (itr->getUserId() == loggedInUserId) {
+			int intDate = itr->getDate();
+			tab[placeInDateArray] = intDate;
+			placeInDateArray++;
+		}
+	}
+
+	AuxiliaryMethods::quickSort(tab, 0, size - 1);
+
+	SYSTEMTIME currentDate;
+	GetSystemTime(&currentDate);
+	string currentMonth = "";
+	string checkedMonth = "";
+	int intCurrentMonth = 0;
+	int intCheckedMonth = 0;
+	string currentYear = "";
+	string checkedYear = "";
+	currentMonth = to_string(currentDate.wMonth);
+	currentYear = to_string(currentDate.wYear);
+	intCurrentMonth = AuxiliaryMethods::convertStringToInt(currentMonth);
+
+	int sum = 0;
+	for (int i = 0; i < size; i++) {
+		for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++) {
+			if (itr->getUserId() == loggedInUserId) {
+				if (itr->getDate() == tab[i]) {
+					int intDate = itr->getDate();
+					string stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
+					checkedMonth = AuxiliaryMethods::dateDividerMonth(stringDate);
+					checkedYear = AuxiliaryMethods::dateDividerYear(stringDate);
+					intCheckedMonth = AuxiliaryMethods::convertStringToInt(checkedMonth);
+					if ((intCheckedMonth == (intCurrentMonth - 1)) && (checkedYear == currentYear)) {
+						cout << "Data: " << stringDate << endl;
+
+						string item = "";
+						item = itr->getItem();
+						cout << "item: " << item << endl;
+
+						int amount = 0;
+						amount = itr->getAmount();
+						sum += amount;
+						cout << "amount: " << amount << endl << endl;
+					}
+				}
+			}
+		}
+	}
+	system("pause");
+	delete[] tab;
+	return sum;
+}
+
 void UserManager::balanceSheetForLatestMonth() {
 
+	showAllSortedIncomesForLatestMonth();
 }
 
 void UserManager::balanceSheetForSelectedPeriod() {
