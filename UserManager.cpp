@@ -407,97 +407,22 @@ void UserManager::loadFromFile() {
 	
 }
 
+struct lessIncomeDate
+{
+
+	inline bool operator() (Incomes& struct1, Incomes& struct2)
+	{
+		return (struct1.getDate() < struct2.getDate());
+	}
+};
+
 int UserManager::showAllSortedIncomesForCurrentMonth() {
-		
+
 	system("cls");
 	cout << "Incomes list" << endl;
-	cout << "-------------------------" << endl;
+	cout << "-------------------------" << endl;	
 
-	int size = 0;
-	for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++)	{
-		if (itr->getUserId() == loggedInUserId)	{
-			size++;
-		}
-	}
-
-	int *tab;
-	tab = new int[size];	
-	int placeInDateArray = 0;
-		
-	for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++)	{
-		if (itr->getUserId() == loggedInUserId)	{	
-			int intDate = itr->getDate();
-			tab[placeInDateArray] = intDate;
-			placeInDateArray++;
-		}			
-	}		
-
-	AuxiliaryMethods::quickSort(tab, 0, size-1);
-
-	SYSTEMTIME currentDate;
-	GetSystemTime(&currentDate);
-	string currentMonth = "";
-	string checkedMonth = "";
-	string currentYear = "";
-	string checkedYear = "";	
-	currentMonth = to_string(currentDate.wMonth);	
-	currentYear = to_string(currentDate.wYear);	
-
-	int sum = 0;
-	for (int i = 0; i < size; i++) {
-		for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++)	{
-			if (itr->getUserId() == loggedInUserId)	{
-				if (itr->getDate() == tab[i]) {
-					int intDate = itr->getDate();
-					string stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
-					checkedMonth = AuxiliaryMethods::dateDividerMonth(stringDate);
-					checkedYear = AuxiliaryMethods::dateDividerYear(stringDate);					
-					if ((checkedMonth == currentMonth)&&(checkedYear == currentYear)) {
-						cout << "Data: " << stringDate << endl;
-
-						string item = "";
-						item = itr->getItem();
-						cout << "item: " << item << endl;
-
-						int amount = 0;
-						amount = itr->getAmount();
-						sum += amount;
-						cout << "amount: " << amount << endl << endl;
-					}					
-				}
-			}
-		}
-	}
-	
-	delete[] tab;	
-	return sum;
-}
-
-int UserManager::showAllSortedExpensesForCurrentMonth() {
-		
-	cout << "Expenses list" << endl;
-	cout << "-------------------------" << endl;
-
-	int size = 0;
-	for (vector <Expenses>::iterator itr = vectorExpenses.begin(); itr != vectorExpenses.end(); itr++) {
-		if (itr->getUserId() == loggedInUserId)	{
-			size++;
-		}
-	}
-
-	int *tab;
-	tab = new int[size];
-	int placeInDateArray = 0;
-
-	for (vector <Expenses>::iterator itr = vectorExpenses.begin(); itr != vectorExpenses.end(); itr++) {
-		if (itr->getUserId() == loggedInUserId)	{
-			int intDate = itr->getDate();
-			tab[placeInDateArray] = intDate;
-			placeInDateArray++;
-		}
-	}
-
-	AuxiliaryMethods::quickSort(tab, 0, size-1);
+	sort(vectorIncomes.begin(), vectorIncomes.end(), lessIncomeDate());
 
 	SYSTEMTIME currentDate;
 	GetSystemTime(&currentDate);
@@ -509,32 +434,77 @@ int UserManager::showAllSortedExpensesForCurrentMonth() {
 	currentYear = to_string(currentDate.wYear);
 
 	int sum = 0;
-	for (int i = 0; i < size; i++) {
-		for (vector <Expenses>::iterator itr = vectorExpenses.begin(); itr != vectorExpenses.end(); itr++) {
-			if (itr->getUserId() == loggedInUserId)	{
-				if (itr->getDate() == tab[i]) {
-					int intDate = itr->getDate();
-					string stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
-					checkedMonth = AuxiliaryMethods::dateDividerMonth(stringDate);
-					checkedYear = AuxiliaryMethods::dateDividerYear(stringDate);
-					if ((checkedMonth == currentMonth)&&(checkedYear == currentYear)) {
-						cout << "Data: " << stringDate << endl;
+	for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++) {				
+		if (itr->getUserId() == loggedInUserId) {
+			int intDate = itr->getDate();
+			string stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
+			checkedMonth = AuxiliaryMethods::dateDividerMonth(stringDate);
+			checkedYear = AuxiliaryMethods::dateDividerYear(stringDate);
+			if ((checkedMonth == currentMonth) && (checkedYear == currentYear)) {
+				cout << "Data: " << stringDate << endl;
 
-						string item = "";
-						item = itr->getItem();
-						cout << "item: " << item << endl;
+				string item = "";
+				item = itr->getItem();
+				cout << "item: " << item << endl;
 
-						int amount = 0;
-						amount = itr->getAmount();
-						sum += amount;
-						cout << "amount: " << amount << endl << endl;
-					}
-				}
+				int amount = 0;
+				amount = itr->getAmount();
+				sum += amount;
+				cout << "amount: " << amount << endl << endl;
 			}
 		}
 	}
 
-	delete[] tab;
+	return sum;	
+}
+
+struct lessExpenseDate
+{
+
+	inline bool operator() (Expenses& struct1, Expenses& struct2)
+	{
+		return (struct1.getDate() < struct2.getDate());
+	}
+};
+
+int UserManager::showAllSortedExpensesForCurrentMonth() {
+		
+	cout << "Expenses list" << endl;
+	cout << "-------------------------" << endl;
+
+	sort(vectorExpenses.begin(), vectorExpenses.end(), lessExpenseDate());
+
+	SYSTEMTIME currentDate;
+	GetSystemTime(&currentDate);
+	string currentMonth = "";
+	string checkedMonth = "";
+	string currentYear = "";
+	string checkedYear = "";
+	currentMonth = to_string(currentDate.wMonth);
+	currentYear = to_string(currentDate.wYear);
+
+	int sum = 0;
+	for (vector <Expenses>::iterator itr = vectorExpenses.begin(); itr != vectorExpenses.end(); itr++) {
+		if (itr->getUserId() == loggedInUserId) {
+			int intDate = itr->getDate();
+			string stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
+			checkedMonth = AuxiliaryMethods::dateDividerMonth(stringDate);
+			checkedYear = AuxiliaryMethods::dateDividerYear(stringDate);
+			if ((checkedMonth == currentMonth) && (checkedYear == currentYear)) {
+				cout << "Data: " << stringDate << endl;
+
+				string item = "";
+				item = itr->getItem();
+				cout << "item: " << item << endl;
+
+				int amount = 0;
+				amount = itr->getAmount();
+				sum += amount;
+				cout << "amount: " << amount << endl << endl;
+			}
+		}
+	}
+
 	return sum;
 }
 
@@ -565,26 +535,7 @@ int UserManager::showAllSortedIncomesForLatestMonth() {
 	cout << "Incomes list" << endl;
 	cout << "-------------------------" << endl;
 
-	int size = 0;
-	for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++) {
-		if (itr->getUserId() == loggedInUserId) {
-			size++;
-		}
-	}
-
-	int *tab;
-	tab = new int[size];
-	int placeInDateArray = 0;
-
-	for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++) {
-		if (itr->getUserId() == loggedInUserId) {
-			int intDate = itr->getDate();
-			tab[placeInDateArray] = intDate;
-			placeInDateArray++;
-		}
-	}
-
-	AuxiliaryMethods::quickSort(tab, 0, size - 1);
+	sort(vectorIncomes.begin(), vectorIncomes.end(), lessIncomeDate());
 
 	SYSTEMTIME currentDate;
 	GetSystemTime(&currentDate);
@@ -599,39 +550,95 @@ int UserManager::showAllSortedIncomesForLatestMonth() {
 	intCurrentMonth = AuxiliaryMethods::convertStringToInt(currentMonth);
 
 	int sum = 0;
-	for (int i = 0; i < size; i++) {
-		for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++) {
-			if (itr->getUserId() == loggedInUserId) {
-				if (itr->getDate() == tab[i]) {
-					int intDate = itr->getDate();
-					string stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
-					checkedMonth = AuxiliaryMethods::dateDividerMonth(stringDate);
-					checkedYear = AuxiliaryMethods::dateDividerYear(stringDate);
-					intCheckedMonth = AuxiliaryMethods::convertStringToInt(checkedMonth);
-					if ((intCheckedMonth == (intCurrentMonth - 1)) && (checkedYear == currentYear)) {
-						cout << "Data: " << stringDate << endl;
+	for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++) {
+		if (itr->getUserId() == loggedInUserId) {
+			int intDate = itr->getDate();
+			string stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
+			checkedMonth = AuxiliaryMethods::dateDividerMonth(stringDate);
+			checkedYear = AuxiliaryMethods::dateDividerYear(stringDate);
+			intCheckedMonth = AuxiliaryMethods::convertStringToInt(checkedMonth);
+			if ((intCheckedMonth == (intCurrentMonth - 1)) && (checkedYear == currentYear)) {
+				cout << "Data: " << stringDate << endl;
 
-						string item = "";
-						item = itr->getItem();
-						cout << "item: " << item << endl;
+				string item = "";
+				item = itr->getItem();
+				cout << "item: " << item << endl;
 
-						int amount = 0;
-						amount = itr->getAmount();
-						sum += amount;
-						cout << "amount: " << amount << endl << endl;
-					}
-				}
+				int amount = 0;
+				amount = itr->getAmount();
+				sum += amount;
+				cout << "amount: " << amount << endl << endl;
 			}
 		}
 	}
-	system("pause");
-	delete[] tab;
+	
+	return sum;
+}
+
+int UserManager::showAllSortedExpensesForLatestMonth() {
+		
+	cout << "Expenses list" << endl;
+	cout << "-------------------------" << endl;
+
+	sort(vectorExpenses.begin(), vectorExpenses.end(), lessExpenseDate());
+
+	SYSTEMTIME currentDate;
+	GetSystemTime(&currentDate);
+	string currentMonth = "";
+	string checkedMonth = "";
+	int intCurrentMonth = 0;
+	int intCheckedMonth = 0;
+	string currentYear = "";
+	string checkedYear = "";
+	currentMonth = to_string(currentDate.wMonth);
+	currentYear = to_string(currentDate.wYear);
+	intCurrentMonth = AuxiliaryMethods::convertStringToInt(currentMonth);
+
+	int sum = 0;
+	for (vector <Expenses>::iterator itr = vectorExpenses.begin(); itr != vectorExpenses.end(); itr++) {
+		if (itr->getUserId() == loggedInUserId) {
+			int intDate = itr->getDate();
+			string stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
+			checkedMonth = AuxiliaryMethods::dateDividerMonth(stringDate);
+			checkedYear = AuxiliaryMethods::dateDividerYear(stringDate);
+			intCheckedMonth = AuxiliaryMethods::convertStringToInt(checkedMonth);
+			if ((intCheckedMonth == (intCurrentMonth - 1)) && (checkedYear == currentYear)) {
+				cout << "Data: " << stringDate << endl;
+
+				string item = "";
+				item = itr->getItem();
+				cout << "item: " << item << endl;
+
+				int amount = 0;
+				amount = itr->getAmount();
+				sum += amount;
+				cout << "amount: " << amount << endl << endl;
+			}
+		}
+	}
+	
 	return sum;
 }
 
 void UserManager::balanceSheetForLatestMonth() {
 
 	showAllSortedIncomesForLatestMonth();
+	showAllSortedExpensesForLatestMonth();
+	
+	int incomesSum = showAllSortedIncomesForLatestMonth();
+	int expensesSum = showAllSortedExpensesForLatestMonth();
+	int balance = incomesSum - expensesSum;
+
+	cout << endl;
+	cout << "-------------------------" << endl;
+	cout << "SUMMARY FOR LATEST MONTH" << endl;
+	cout << "-------------------------" << endl;
+
+	cout << "sum of incomes: " << incomesSum << endl;
+	cout << "sum of expenses: " << expensesSum << endl;
+	cout << "balance: " << balance << endl;
+	cout << endl;
+	system("pause");
 }
 
 void UserManager::balanceSheetForSelectedPeriod() {

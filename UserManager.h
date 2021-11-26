@@ -64,13 +64,10 @@ public:
 	int showAllSortedIncomesForCurrentMonth();
 	int showAllSortedExpensesForCurrentMonth();
 	void balanceSheetForCurrentMonth();
-
-
-
 	int showAllSortedIncomesForLatestMonth();
+	int showAllSortedExpensesForLatestMonth();
+
 	void balanceSheetForLatestMonth();
-
-
 
 	void balanceSheetForSelectedPeriod();
 };
