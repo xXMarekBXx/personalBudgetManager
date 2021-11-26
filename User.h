@@ -38,8 +38,7 @@ public:
 
 /////////////////////////////////////////////////////////////////////
 
-class UsersFile
-{
+class UsersFile {
 	CMarkup xml;
 	const string USERS_FILE_NAME="users.xml";	
 	vector <User> users;

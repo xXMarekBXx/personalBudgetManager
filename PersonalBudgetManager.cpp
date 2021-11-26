@@ -31,14 +31,6 @@ void PersonalBudgetManager::addExpense() {
 	userManager.addExpense();
 }
 
-void PersonalBudgetManager::showAllSortedIncomes() {
-	userManager.showAllSortedIncomesForCurrentMonth();
-}
-
-void PersonalBudgetManager::showAllSortedExpenses() {
-	userManager.showAllSortedExpensesForCurrentMonth();
-}
-
 void PersonalBudgetManager::displayBalanceSheetForCurrentMonth() {
 	userManager.balanceSheetForCurrentMonth();
 }

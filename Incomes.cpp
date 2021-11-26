@@ -44,8 +44,7 @@ int Incomes::getAmount() {
 
 bool IncomesFile::isIncomesFileExists(string incomesFileName) {
 
-	if (xml.Load(incomesFileName))
-	{
+	if (xml.Load(incomesFileName)) {
 		return true;
 	}
 	else {
@@ -54,12 +53,10 @@ bool IncomesFile::isIncomesFileExists(string incomesFileName) {
 	return false;
 }
 
-int IncomesFile::returnVectorSize()
-{
+int IncomesFile::returnVectorSize() {
 	int vectorSize = vectorIncomes.size();
 
-	if (vectorSize == 0)
-	{
+	if (vectorSize == 0) {
 		return 0;
 	}
 	else {
@@ -71,8 +68,7 @@ void IncomesFile::addIncomeToFile(Incomes incomes) {
 
 	if (isIncomesFileExists(INCOMES_FILE_NAME) == true)
 		xml.Load(INCOMES_FILE_NAME);
-	else if (!isIncomesFileExists(INCOMES_FILE_NAME))
-	{
+	else if (!isIncomesFileExists(INCOMES_FILE_NAME)) {
 		xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
 		xml.AddElem("Incomes");
 	}	
@@ -92,24 +88,19 @@ void IncomesFile::addIncomeToFile(Incomes incomes) {
 
 	xml.AddElem("item", incomes.getItem());
 	xml.AddElem("amount", incomes.getAmount());
-		
-
 	xml.Save("incomes.xml");
-	
-	//vectorIncomes.push_back(incomes);
 	
 	cout << "Income added" << endl;
 	system("Pause");
 }
 
 vector <Incomes> IncomesFile::loadAllIncomesDataFromFileToVector() {
-	xml.Load("incomes.xml");
 
+	xml.Load("incomes.xml");
 	xml.FindElem("Incomes");
 	xml.IntoElem();
 
-	while (xml.FindElem("Income"))
-	{
+	while (xml.FindElem("Income")) {
 		xml.IntoElem();
 
 		xml.FindElem("userId");

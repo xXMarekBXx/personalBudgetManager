@@ -39,15 +39,8 @@ public:
 	bool isUserLoggedIn();
 	void addIncome();
 	void addExpense();
-	void displayBalanceSheetForCurrentMonth();
-	void showAllSortedIncomes();
-	void showAllSortedExpenses();
-	void displayBalanceSheet();
-
+	void displayBalanceSheetForCurrentMonth();	
 	void balanceSheetForLatestMonth();
-
-
-
 	void balanceSheetForSelectedPeriod();
 };
 

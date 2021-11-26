@@ -28,7 +28,6 @@ public:
 
 	static string getTodaysDate();
 
-
 	static string dateDividerYear(string date);
 	static string dateDividerMonth(string date);	
 	static string dateDividerDay(string date);
@@ -40,10 +39,7 @@ public:
 	static bool isRightWholeDate(string date);
 	static int dateMergerConverter(string date);
 	static int convertDate(string date);
-	static string dateConnectorConverter(int intDate);
-
-	static void quickSort(int *tab, int left, int right);
-	
+	static string dateConnectorConverter(int intDate);	
 };
 
 #endif

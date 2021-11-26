@@ -30,8 +30,11 @@ class UserManager {
 
 	User getNewUserData();
 	int getNewUserId();
-	bool isLoginExist(string login);	
-	
+	bool isLoginExist(string login);		
+	void showAllUsers();
+	void loadFromFile();
+	void changePasswordInFile(string newPassword);
+	int getLoggedInUserId();
 	void todayOrAnyOtherDateIncomeMenu();
 	int getNewIncomesId();
 	void getAllDataToTodaysIncome();		
@@ -42,6 +45,17 @@ class UserManager {
 	void getAllDataToTodaysExpense();
 	void getAllDataToSelectedExpense();
 
+	int showAllSortedIncomesForCurrentMonth();
+	int showAllSortedExpensesForCurrentMonth();
+
+	int showAllSortedIncomesForLatestMonth();
+	int showAllSortedExpensesForLatestMonth();
+		
+	int getStartingDate();	
+	int getEndingDate();
+	int showAllSortedIncomesForSelectedPeriod(int startingDate, int endingDate);
+	int showAllSortedExpensesForSelectedPeriod(int startingDate, int endingDate);
+
 public:	
 	UserManager(string usersFileName, string incomesFileName, string expensesFileName) : usersFile(usersFileName), incomesFile(incomesFileName), expensesFile(expensesFileName) {
 		loggedInUserId = 0;
@@ -50,25 +64,15 @@ public:
 		vectorExpenses = expensesFile.loadExpensesFromFile();
 	};
 	
-	void changePasswordInFile(string newPassword);
-	int getLoggedInUserId();
+	bool isUserLoggedIn();
 	void userRegistration();
 	int userLoggingIn();
 	void loggedInUserPasswordChanging();
-	int userloggingOut();
-	bool isUserLoggedIn();
-	void showAllUsers();	
+	int userloggingOut();		
 	void addIncome();
-	void addExpense();	
-	void loadFromFile();
-	int showAllSortedIncomesForCurrentMonth();
-	int showAllSortedExpensesForCurrentMonth();
-	void balanceSheetForCurrentMonth();
-	int showAllSortedIncomesForLatestMonth();
-	int showAllSortedExpensesForLatestMonth();
-
-	void balanceSheetForLatestMonth();
-
+	void addExpense();			
+	void balanceSheetForCurrentMonth();	
+	void balanceSheetForLatestMonth();	
 	void balanceSheetForSelectedPeriod();
 };
 

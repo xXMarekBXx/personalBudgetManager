@@ -21,4 +21,11 @@
 <item>1</item>
 <amount>1</amount>
 </Expense>
+<Expense>
+<userId>1</userId>
+<expenseId>4</expenseId>
+<date>2011-10-10</date>
+<item>blackFriday</item>
+<amount>1200</amount>
+</Expense>
 </Expenses>

@@ -16,8 +16,7 @@ int AuxiliaryMethods::convertStringToInt(string number) {
 }
 
 string AuxiliaryMethods::readLine() {	
-	string data = "";
-	//cin.ignore();
+	string data = "";	
 	getline(cin, data);
 	return data;
 }
@@ -45,8 +44,7 @@ int AuxiliaryMethods::readInteger() {
 	int number = 0;
 
 	while (true)
-	{
-		//cin.ignore();
+	{		
 		getline(cin, data);
 
 		stringstream myStream(data);
@@ -212,9 +210,7 @@ bool AuxiliaryMethods::isRightWholeDate(string date) {
 	string month = dateDividerMonth(date);
 	string day = dateDividerDay(date);
 
-	if (isRightYear(year) && isRightMonth(month) && isRightDay(year, month, day))
-	{
-		//cout << "Right Date!" << endl;
+	if (isRightYear(year) && isRightMonth(month) && isRightDay(year, month, day)) {		
 		return true;
 	}
 
@@ -270,8 +266,7 @@ string  AuxiliaryMethods::getTodaysDate()
 	string stringDay;
 	string dayWitchZero;
 
-	if (howManyDigits(intMonth) == 1)
-	{
+	if (howManyDigits(intMonth) == 1) {
 		
 		stringMonth = convertIntToString(intMonth);
 		monthWitchZero = "0" + stringMonth;
@@ -281,8 +276,7 @@ string  AuxiliaryMethods::getTodaysDate()
 		date = year + "-" + month + "-" + day;		
 	}	
 
-	if (howManyDigits(intDay) == 1)
-	{
+	if (howManyDigits(intDay) == 1)	{
 		stringDay = convertIntToString(intDay);
 		dayWitchZero = "0" + stringDay;
 		date = year + "-" + month + "-" + dayWitchZero;
@@ -297,13 +291,11 @@ string  AuxiliaryMethods::getTodaysDate()
 	return date;
 }
 
-string AuxiliaryMethods::dateConnectorYear(string date)
-{
+string AuxiliaryMethods::dateConnectorYear(string date) {
 	string year;
 	string yearWithHyphen;
 
-	for (int i = 0; i < 4; i++)
-	{
+	for (int i = 0; i < 4; i++)	{
 		year += date[i];
 	}
 	yearWithHyphen = year + "-";
@@ -311,13 +303,11 @@ string AuxiliaryMethods::dateConnectorYear(string date)
 	return yearWithHyphen;
 }
 
-string AuxiliaryMethods::dateConnectorMonth(string date)
-{
+string AuxiliaryMethods::dateConnectorMonth(string date) {
 	string month;
 	string monthWithHyphen;
 
-	for (int i = 4; i < 6; i++)
-	{
+	for (int i = 4; i < 6; i++)	{
 		month += date[i];
 	}
 
@@ -325,20 +315,17 @@ string AuxiliaryMethods::dateConnectorMonth(string date)
 	return monthWithHyphen;
 }
 
-string AuxiliaryMethods::dateConnectorDay(string date)
-{
+string AuxiliaryMethods::dateConnectorDay(string date) {
 	string day;	
 
-	for (int i = 6; i < 8; i++)
-	{
+	for (int i = 6; i < 8; i++)	{
 		day += date[i];
 	}
 
 	return day;
 }
 
-string AuxiliaryMethods::dateConnectorConverter(int intDate)
-{
+string AuxiliaryMethods::dateConnectorConverter(int intDate) {
 	string stringDate;
 	string year = "";
 	string month = "";
@@ -352,26 +339,4 @@ string AuxiliaryMethods::dateConnectorConverter(int intDate)
 	day = dateConnectorDay(stringDate);
 	wholeDate = year + month + day;
 	return wholeDate;
-}
-
-void AuxiliaryMethods::quickSort(int *tab, int left, int right)
-{
-	if (right <= left) return;
-
-	int i = left - 1, j = right + 1,
-		pivot = tab[(left + right) / 2];
-
-	while (true)
-	{
-		while (pivot > tab[++i]);
-		while (pivot < tab[--j]);
-		if (i <= j)		
-			swap(tab[i], tab[j]);
-		else
-			break;
-	}
-	if (j > left)
-		quickSort(tab, left, j);
-	if (i < right)
-		quickSort(tab, i, right);
 }

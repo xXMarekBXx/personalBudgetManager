@@ -71,7 +71,7 @@ int main() {
 				personalBudgetManager.balanceSheetForLatestMonth();
 				break;
 			case 5:
-				;//personalBudgetManager.balanceSheetForSelectedPeriod();
+				personalBudgetManager.balanceSheetForSelectedPeriod();
 				break;
 			case 6:
 				personalBudgetManager.loggedInUserPasswordChanging();

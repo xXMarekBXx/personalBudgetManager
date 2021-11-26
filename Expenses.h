@@ -37,8 +37,7 @@ public:
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-class ExpensesFile
-{
+class ExpensesFile {
 	CMarkup xml;
 	const string EXPENSES_FILE_NAME = "expenses.xml";
 	Expenses expenses;

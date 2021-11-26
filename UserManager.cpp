@@ -1,8 +1,7 @@
 #include "UserManager.h"
 #include "User.h"
 
-int UserManager::getLoggedInUserId()
-{
+int UserManager::getLoggedInUserId() {
 	return loggedInUserId;
 }
 
@@ -102,17 +101,13 @@ int UserManager::userLoggingIn() {
 	cin >> login;
 
 	vector <User>::iterator itr = users.begin();
-	while (itr != users.end())
-	{
-		if (itr->getLogin() == login)
-		{
-			for (int attemptsNumber = 3; attemptsNumber > 0; attemptsNumber--)
-			{
+	while (itr != users.end()) {
+		if (itr->getLogin() == login) {
+			for (int attemptsNumber = 3; attemptsNumber > 0; attemptsNumber--) {
 				cout << "Enter your password. Trouble left: " << attemptsNumber << ": ";
 				cin >> password;
 
-				if (itr->getPassword() == password)
-				{
+				if (itr->getPassword() == password)	{
 					cout << endl << "You have logged in correctly." << endl << endl;
 					system("pause");
 					loggedInUserId = itr->getUserId();					
@@ -165,10 +160,8 @@ void UserManager::loggedInUserPasswordChanging() {
 	cin.ignore();
 	newPassword = AuxiliaryMethods::readLine();
 		
-	for (vector <User>::iterator itr = users.begin(); itr != users.end(); itr++)
-	{
-		if (itr->getUserId() == loggedInUserId)
-		{
+	for (vector <User>::iterator itr = users.begin(); itr != users.end(); itr++) {
+		if (itr->getUserId() == loggedInUserId)	{
 			itr->setPassword(newPassword);
 			cout << "Password has been changed." << endl << endl;
 			system("pause");
@@ -182,8 +175,7 @@ int UserManager::userloggingOut() {
 	return loggedInUserId;
 }
 
-void UserManager::todayOrAnyOtherDateIncomeMenu()
-{
+void UserManager::todayOrAnyOtherDateIncomeMenu() {
 	system("cls");
 	cout << "Adding Income" << endl;
 	cout << "1. Add today's income" << endl;
@@ -194,8 +186,7 @@ void UserManager::todayOrAnyOtherDateIncomeMenu()
 	cin.ignore();
 	choice = AuxiliaryMethods::readInteger();
 
-	switch (choice)
-	{
+	switch (choice)	{
 	case 1:
 		getAllDataToTodaysIncome();
 		vectorIncomes.push_back(incomes);
@@ -250,8 +241,7 @@ void UserManager::getAllDataToSelectedIncome() {
 	cout << "Enter the date of the income in the format: yyyy-mm-dd: " << endl;
 	string date;
 
-	do 
-	{
+	do {
 		cin >> date;
 
 	} while (!AuxiliaryMethods::isRightWholeDate(date));	
@@ -271,8 +261,7 @@ void UserManager::getAllDataToSelectedIncome() {
 	incomes.setAmount(amount);
 }
 
-void UserManager::todayOrAnyOtherDateExpenseMenu()
-{
+void UserManager::todayOrAnyOtherDateExpenseMenu() {
 	system("cls");
 	cout << "Adding Expense" << endl;
 	cout << "1. Add today's expense" << endl;
@@ -339,8 +328,7 @@ void UserManager::getAllDataToSelectedExpense() {
 	cout << "Enter the date of the income in the format: yyyy-mm-dd: " << endl;
 	string date;
 
-	do
-	{
+	do {
 		cin >> date;
 
 	} while (!AuxiliaryMethods::isRightWholeDate(date));
@@ -407,8 +395,7 @@ void UserManager::loadFromFile() {
 	
 }
 
-struct lessIncomeDate
-{
+struct lessIncomeDate {
 
 	inline bool operator() (Incomes& struct1, Incomes& struct2)
 	{
@@ -458,8 +445,7 @@ int UserManager::showAllSortedIncomesForCurrentMonth() {
 	return sum;	
 }
 
-struct lessExpenseDate
-{
+struct lessExpenseDate {
 
 	inline bool operator() (Expenses& struct1, Expenses& struct2)
 	{
@@ -641,6 +627,121 @@ void UserManager::balanceSheetForLatestMonth() {
 	system("pause");
 }
 
-void UserManager::balanceSheetForSelectedPeriod() {
 
+int UserManager::getStartingDate() {
+
+	cout << "Enter the date from when you want to see the balance sheet in the format: yyyy-mm-dd: " << endl;
+	string startingDate;
+
+	do
+	{
+		cin >> startingDate;
+
+	} while (!AuxiliaryMethods::isRightWholeDate(startingDate));
+
+	int intStartingDate;
+	intStartingDate = AuxiliaryMethods::convertDate(startingDate);
+
+	return intStartingDate;
+}
+
+int UserManager::getEndingDate() {
+
+	cout << "Enter the date to when you want to see the balance sheet in the format: yyyy-mm-dd: " << endl;
+	string endingDate;
+	do
+	{
+		cin >> endingDate;
+
+	} while (!AuxiliaryMethods::isRightWholeDate(endingDate));
+	
+	int intEndingDate;
+	intEndingDate = AuxiliaryMethods::convertDate(endingDate);
+
+	return intEndingDate;
+}
+
+int UserManager::showAllSortedIncomesForSelectedPeriod(int startingDate, int endingDate) {
+		
+	system("cls");
+	cout << "Incomes list" << endl;
+	cout << "-------------------------" << endl;
+
+	sort(vectorIncomes.begin(), vectorIncomes.end(), lessIncomeDate());
+	
+	int sum = 0;
+	for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++) {
+		if (itr->getUserId() == loggedInUserId) {
+			int intDate = itr->getDate();
+			string stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
+			if ((startingDate < intDate) && (intDate < endingDate)) {
+				cout << "Data: " << stringDate << endl;
+
+				string item = "";
+				item = itr->getItem();
+				cout << "item: " << item << endl;
+
+				int amount = 0;
+				amount = itr->getAmount();
+				sum += amount;
+				cout << "amount: " << amount << endl << endl;
+			}
+		}
+	}
+	
+	return sum;
+}
+
+int UserManager::showAllSortedExpensesForSelectedPeriod(int startingDate, int endingDate) {
+		
+	cout << "Expenses list" << endl;
+	cout << "-------------------------" << endl;
+
+	sort(vectorExpenses.begin(), vectorExpenses.end(), lessExpenseDate());
+
+	int sum = 0;
+	for (vector <Expenses>::iterator itr = vectorExpenses.begin(); itr != vectorExpenses.end(); itr++) {
+		if (itr->getUserId() == loggedInUserId) {
+			int intDate = itr->getDate();
+			string stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
+			if ((startingDate < intDate) && (intDate < endingDate)) {
+				cout << "Data: " << stringDate << endl;
+
+				string item = "";
+				item = itr->getItem();
+				cout << "item: " << item << endl;
+
+				int amount = 0;
+				amount = itr->getAmount();
+				sum += amount;
+				cout << "amount: " << amount << endl << endl;
+			}
+		}
+	}
+	
+	return sum;
+}
+
+void UserManager::balanceSheetForSelectedPeriod() {
+	
+	int startingDate = getStartingDate();
+	int endingDate = getEndingDate();	
+
+	showAllSortedIncomesForSelectedPeriod(startingDate, endingDate);
+	showAllSortedExpensesForSelectedPeriod(startingDate, endingDate);
+
+	int incomesSum = showAllSortedIncomesForSelectedPeriod(startingDate, endingDate);
+	int expensesSum = showAllSortedExpensesForSelectedPeriod(startingDate, endingDate);
+	int balance = incomesSum - expensesSum;
+
+	cout << endl;
+	cout << "-------------------------" << endl;
+	cout << "SUMMARY FOR YOUR PERIOD DATE" << endl;
+	cout << "-------------------------" << endl;
+
+	cout << "sum of incomes: " << incomesSum << endl;
+	cout << "sum of expenses: " << expensesSum << endl;
+	cout << "balance: " << balance << endl;
+	cout << endl;
+	system("pause");
 }

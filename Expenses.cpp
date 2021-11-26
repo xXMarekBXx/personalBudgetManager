@@ -54,8 +54,7 @@ bool ExpensesFile::isExpensesFileExists(string expensesFileName) {
 	return false;
 }
 
-int ExpensesFile::returnVectorSize()
-{
+int ExpensesFile::returnVectorSize() {
 	int vectorSize = vectorExpenses.size();
 
 	if (vectorSize == 0)
@@ -83,8 +82,7 @@ void ExpensesFile::addExpenseToFile(Expenses expenses) {
 	xml.IntoElem();
 	xml.AddElem("userId", expenses.getUserId());
 	xml.AddElem("expenseId", expenses.getExpenseId());
-
-	//xml.AddElem("date", expenses.getDate());
+	
 	int intDate;
 	intDate = expenses.getDate();	
 	string stringDate;
@@ -102,8 +100,7 @@ void ExpensesFile::addExpenseToFile(Expenses expenses) {
 	system("Pause");
 }
 
-vector <Expenses> ExpensesFile::loadAllExpensesDataFromFileToVector()
-{
+vector <Expenses> ExpensesFile::loadAllExpensesDataFromFileToVector() {
 	xml.Load(EXPENSES_FILE_NAME);
 
 	xml.FindElem("Expenses");
@@ -125,8 +122,7 @@ vector <Expenses> ExpensesFile::loadAllExpensesDataFromFileToVector()
 
 		xml.FindElem("date");
 		string stringDate;
-		stringDate = xml.GetData();
-		//expenses.setDate(date);
+		stringDate = xml.GetData();		
 		int intDate;
 		intDate = AuxiliaryMethods::convertDate(stringDate);
 		expenses.setDate(intDate);

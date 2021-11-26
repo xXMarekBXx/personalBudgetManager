@@ -39,8 +39,7 @@ public:
 ///////////////////////////////////////////////////////////////////////////////////
 
 
-class IncomesFile
-{
+class IncomesFile {
 	CMarkup xml;
 	const string INCOMES_FILE_NAME = "incomes.xml";
 	Incomes incomes;
