@@ -18,7 +18,7 @@ void Expenses::setDate(int newDate) {
 void Expenses::setItem(string newItem) {
 	item = newItem;
 }
-void Expenses::setAmount(int newAmount) {
+void Expenses::setAmount(double newAmount) {
 	amount = newAmount;
 }
 
@@ -36,7 +36,7 @@ int Expenses::getDate() {
 string Expenses::getItem() {
 	return item;
 }
-int Expenses::getAmount() {
+double Expenses::getAmount() {
 	return amount;
 }
 
@@ -90,7 +90,13 @@ void ExpensesFile::addExpenseToFile(Expenses expenses) {
 	xml.AddElem("date", stringDate);
 	
 	xml.AddElem("item", expenses.getItem());
-	xml.AddElem("amount", expenses.getAmount());
+
+	//xml.AddElem("amount", expenses.getAmount());	
+	double doubleAmount;
+	doubleAmount = expenses.getAmount();
+	string stringAmount;
+	stringAmount = AuxiliaryMethods::convertDoubleToString(doubleAmount);
+	xml.AddElem("amount", stringAmount);
 
 	xml.Save("expenses.xml");
 

@@ -5,7 +5,8 @@
 #include <sstream>
 #include <windows.h>
 #include <algorithm>
-#include <math.h> // redundant in my development environment (Visual Studio Community 2017)
+#include <math.h>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -14,7 +15,9 @@ class AuxiliaryMethods {
 public:
 	
 	static string convertIntToString(int number);
-	static int convertStringToInt(string number);	
+	static string convertDoubleToString(double number);
+	static int convertStringToInt(string number);
+	static double convertStringToDouble(string number);
 	static string readLine();
 	static char readChar();
 	static int readInteger();

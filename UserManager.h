@@ -45,16 +45,16 @@ class UserManager {
 	void getAllDataToTodaysExpense();
 	void getAllDataToSelectedExpense();
 
-	int showAllSortedIncomesForCurrentMonth();
-	int showAllSortedExpensesForCurrentMonth();
+	double showAllSortedIncomesForCurrentMonth();
+	double showAllSortedExpensesForCurrentMonth();
 
-	int showAllSortedIncomesForLatestMonth();
-	int showAllSortedExpensesForLatestMonth();
+	double showAllSortedIncomesForLatestMonth();
+	double showAllSortedExpensesForLatestMonth();
 		
 	int getStartingDate();	
 	int getEndingDate();
-	int showAllSortedIncomesForSelectedPeriod(int startingDate, int endingDate);
-	int showAllSortedExpensesForSelectedPeriod(int startingDate, int endingDate);
+	double showAllSortedIncomesForSelectedPeriod(double startingDate, double endingDate);
+	double showAllSortedExpensesForSelectedPeriod(double startingDate, double endingDate);
 
 public:	
 	UserManager(string usersFileName, string incomesFileName, string expensesFileName) : usersFile(usersFileName), incomesFile(incomesFileName), expensesFile(expensesFileName) {

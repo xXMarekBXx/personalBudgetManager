@@ -18,7 +18,7 @@ void Incomes::setDate(int newDate) {
 void Incomes::setItem(string newItem) {
 	item = newItem;
 }
-void Incomes::setAmount(int newAmount) {
+void Incomes::setAmount(double newAmount) {
 	amount = newAmount;
 }
 
@@ -36,7 +36,7 @@ int Incomes::getDate() {
 string Incomes::getItem() {
 	return item;
 }
-int Incomes::getAmount() {
+double Incomes::getAmount() {
 	return amount;
 }
 
@@ -87,7 +87,14 @@ void IncomesFile::addIncomeToFile(Incomes incomes) {
 	xml.AddElem("date", stringDate);
 
 	xml.AddElem("item", incomes.getItem());
-	xml.AddElem("amount", incomes.getAmount());
+
+	//xml.AddElem("amount", incomes.getAmount());
+	double doubleAmount;
+	doubleAmount = incomes.getAmount();
+	string stringAmount;
+	stringAmount = AuxiliaryMethods::convertDoubleToString(doubleAmount);
+	xml.AddElem("amount", stringAmount);
+
 	xml.Save("incomes.xml");
 	
 	cout << "Income added" << endl;
@@ -128,7 +135,7 @@ vector <Incomes> IncomesFile::loadAllIncomesDataFromFileToVector() {
 		xml.FindElem("amount");
 		string amount;
 		amount = xml.GetData();
-		incomes.setAmount(AuxiliaryMethods::convertStringToInt(amount));
+		incomes.setAmount(AuxiliaryMethods::convertStringToDouble(amount));
 				
 		vectorIncomes.push_back(incomes);
 		xml.OutOfElem();

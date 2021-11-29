@@ -15,6 +15,21 @@ int AuxiliaryMethods::convertStringToInt(string number) {
 	return intNumber;
 }
 
+string AuxiliaryMethods::convertDoubleToString(double number)
+{
+	ostringstream ss;
+	ss << number;
+	std::string str = ss.str();
+	return str;
+}
+
+double AuxiliaryMethods::convertStringToDouble(string stringChain)
+{		
+	double doubleValue; 
+	doubleValue = strtod(stringChain.c_str(), NULL);
+	return doubleValue;
+}
+
 string AuxiliaryMethods::readLine() {	
 	string data = "";	
 	getline(cin, data);
@@ -56,9 +71,9 @@ int AuxiliaryMethods::readInteger() {
 }
 
 bool AuxiliaryMethods::isNumber(string text) {
-
-	for (int i = 0; i < text.length(); i++) if (text[i] > '9' || text[i] < '0') return false;
-
+	int textLength = 0;
+	textLength = text.length();
+	for (int i = 0; i < textLength; i++) if (text[i] > '9' || text[i] < '0') return false;
 	return true;
 }
 

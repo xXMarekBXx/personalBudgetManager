@@ -19,7 +19,7 @@ class Incomes {
 	int incomeId;	
 	int date;
 	string item;
-	int amount;	
+	double amount;	
 
 public:	
 	
@@ -27,13 +27,13 @@ public:
 	void setIncomeId(int newIncomeId);	
 	void setDate(int newDate);
 	void setItem(string newItem);
-	void setAmount(int newAmount);
+	void setAmount(double newAmount);
 	
 	int getUserId();
 	int getIncomeId();	
 	int getDate();
 	string getItem();
-	int getAmount();	
+	double getAmount();	
 };
 
 ///////////////////////////////////////////////////////////////////////////////////

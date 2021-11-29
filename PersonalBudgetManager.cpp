@@ -17,7 +17,9 @@ void PersonalBudgetManager::userloggingOut() {
 }
 
 bool PersonalBudgetManager::isUserLoggedIn() {
-	if (userManager.isUserLoggedIn() > 0)
+	bool isLoggedIn;
+	isLoggedIn = userManager.isUserLoggedIn();
+	if (isLoggedIn == true)
 		return true;
 	else
 		return false;

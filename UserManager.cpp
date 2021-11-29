@@ -5,7 +5,7 @@ int UserManager::getLoggedInUserId() {
 	return loggedInUserId;
 }
 
-int UserManager::getNewUserId() { //reordered conditions fixed the problem
+int UserManager::getNewUserId() {
 	if (users.empty())
 	{
 		return 1;
@@ -234,7 +234,7 @@ void UserManager::getAllDataToTodaysIncome() {
 	incomes.setItem(item);	
 
 	cout << "Enter the amount of the income: ";
-	int amount;
+	double amount;
 	cin >> amount;	
 	incomes.setAmount(amount);	
 }
@@ -262,7 +262,7 @@ void UserManager::getAllDataToSelectedIncome() {
 	incomes.setItem(item);
 
 	cout << "Enter the amount of the income: ";
-	int amount;
+	double amount;
 	cin >> amount;	
 	incomes.setAmount(amount);
 }
@@ -321,7 +321,7 @@ void UserManager::getAllDataToTodaysExpense() {
 	expenses.setItem(item);
 
 	cout << "Enter the amount of the expense: ";
-	int amount;
+	double amount;
 	cin >> amount;
 	expenses.setAmount(amount);
 }
@@ -409,7 +409,7 @@ struct lessIncomeDate {
 	}
 };
 
-int UserManager::showAllSortedIncomesForCurrentMonth() {
+double UserManager::showAllSortedIncomesForCurrentMonth() {
 
 	system("cls");
 	cout << "Incomes list" << endl;
@@ -426,7 +426,7 @@ int UserManager::showAllSortedIncomesForCurrentMonth() {
 	currentMonth = to_string(currentDate.wMonth);
 	currentYear = to_string(currentDate.wYear);
 
-	int sum = 0;
+	double sum = 0.0;
 	for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++) {				
 		if (itr->getUserId() == loggedInUserId) {
 			int intDate = itr->getDate();
@@ -440,7 +440,7 @@ int UserManager::showAllSortedIncomesForCurrentMonth() {
 				item = itr->getItem();
 				cout << "item: " << item << endl;
 
-				int amount = 0;
+				double amount = 0.0;
 				amount = itr->getAmount();
 				sum += amount;
 				cout << "amount: " << amount << endl << endl;
@@ -459,7 +459,7 @@ struct lessExpenseDate {
 	}
 };
 
-int UserManager::showAllSortedExpensesForCurrentMonth() {
+double UserManager::showAllSortedExpensesForCurrentMonth() {
 		
 	cout << "Expenses list" << endl;
 	cout << "-------------------------" << endl;
@@ -475,7 +475,7 @@ int UserManager::showAllSortedExpensesForCurrentMonth() {
 	currentMonth = to_string(currentDate.wMonth);
 	currentYear = to_string(currentDate.wYear);
 
-	int sum = 0;
+	double sum = 0.0;
 	for (vector <Expenses>::iterator itr = vectorExpenses.begin(); itr != vectorExpenses.end(); itr++) {
 		if (itr->getUserId() == loggedInUserId) {
 			int intDate = itr->getDate();
@@ -489,7 +489,7 @@ int UserManager::showAllSortedExpensesForCurrentMonth() {
 				item = itr->getItem();
 				cout << "item: " << item << endl;
 
-				int amount = 0;
+				double amount = 0.0;
 				amount = itr->getAmount();
 				sum += amount;
 				cout << "amount: " << amount << endl << endl;
@@ -505,9 +505,9 @@ void UserManager::balanceSheetForCurrentMonth() {
 	showAllSortedIncomesForCurrentMonth();
 	showAllSortedExpensesForCurrentMonth();
 
-	int incomesSum = showAllSortedIncomesForCurrentMonth();
-	int expensesSum = showAllSortedExpensesForCurrentMonth();
-	int balance = incomesSum - expensesSum;
+	double incomesSum = showAllSortedIncomesForCurrentMonth();
+	double expensesSum = showAllSortedExpensesForCurrentMonth();
+	double balance = incomesSum - expensesSum;
 
 	cout << endl;
 	cout << "-------------------------" << endl;
@@ -521,7 +521,7 @@ void UserManager::balanceSheetForCurrentMonth() {
 	system("pause");
 }
 
-int UserManager::showAllSortedIncomesForLatestMonth() {
+double UserManager::showAllSortedIncomesForLatestMonth() {
 
 	system("cls");
 	cout << "Incomes list" << endl;
@@ -541,7 +541,7 @@ int UserManager::showAllSortedIncomesForLatestMonth() {
 	currentYear = to_string(currentDate.wYear);
 	intCurrentMonth = AuxiliaryMethods::convertStringToInt(currentMonth);
 
-	int sum = 0;
+	double sum = 0;
 	for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++) {
 		if (itr->getUserId() == loggedInUserId) {
 			int intDate = itr->getDate();
@@ -556,7 +556,7 @@ int UserManager::showAllSortedIncomesForLatestMonth() {
 				item = itr->getItem();
 				cout << "item: " << item << endl;
 
-				int amount = 0;
+				double amount = 0;
 				amount = itr->getAmount();
 				sum += amount;
 				cout << "amount: " << amount << endl << endl;
@@ -567,7 +567,7 @@ int UserManager::showAllSortedIncomesForLatestMonth() {
 	return sum;
 }
 
-int UserManager::showAllSortedExpensesForLatestMonth() {
+double UserManager::showAllSortedExpensesForLatestMonth() {
 		
 	cout << "Expenses list" << endl;
 	cout << "-------------------------" << endl;
@@ -586,7 +586,7 @@ int UserManager::showAllSortedExpensesForLatestMonth() {
 	currentYear = to_string(currentDate.wYear);
 	intCurrentMonth = AuxiliaryMethods::convertStringToInt(currentMonth);
 
-	int sum = 0;
+	double sum = 0;
 	for (vector <Expenses>::iterator itr = vectorExpenses.begin(); itr != vectorExpenses.end(); itr++) {
 		if (itr->getUserId() == loggedInUserId) {
 			int intDate = itr->getDate();
@@ -601,7 +601,7 @@ int UserManager::showAllSortedExpensesForLatestMonth() {
 				item = itr->getItem();
 				cout << "item: " << item << endl;
 
-				int amount = 0;
+				double amount = 0;
 				amount = itr->getAmount();
 				sum += amount;
 				cout << "amount: " << amount << endl << endl;
@@ -617,9 +617,9 @@ void UserManager::balanceSheetForLatestMonth() {
 	showAllSortedIncomesForLatestMonth();
 	showAllSortedExpensesForLatestMonth();
 	
-	int incomesSum = showAllSortedIncomesForLatestMonth();
-	int expensesSum = showAllSortedExpensesForLatestMonth();
-	int balance = incomesSum - expensesSum;
+	double incomesSum = showAllSortedIncomesForLatestMonth();
+	double expensesSum = showAllSortedExpensesForLatestMonth();
+	double balance = incomesSum - expensesSum;
 
 	cout << endl;
 	cout << "-------------------------" << endl;
@@ -667,7 +667,7 @@ int UserManager::getEndingDate() {
 	return intEndingDate;
 }
 
-int UserManager::showAllSortedIncomesForSelectedPeriod(int startingDate, int endingDate) {
+double UserManager::showAllSortedIncomesForSelectedPeriod(double startingDate, double endingDate) {
 		
 	system("cls");
 	cout << "Incomes list" << endl;
@@ -675,19 +675,19 @@ int UserManager::showAllSortedIncomesForSelectedPeriod(int startingDate, int end
 
 	sort(vectorIncomes.begin(), vectorIncomes.end(), lessIncomeDate());
 	
-	int sum = 0;
+	double sum = 0;
 	for (vector <Incomes>::iterator itr = vectorIncomes.begin(); itr != vectorIncomes.end(); itr++) {
 		if (itr->getUserId() == loggedInUserId) {
 			int intDate = itr->getDate();
 			string stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
-			if ((startingDate <= intDate) && (intDate <= endingDate)) { //adding "<=" fixed the problem
+			if ((startingDate <= intDate) && (intDate <= endingDate)) {
 				cout << "Data: " << stringDate << endl;
 
 				string item = "";
 				item = itr->getItem();
 				cout << "item: " << item << endl;
 
-				int amount = 0;
+				double amount = 0;
 				amount = itr->getAmount();
 				sum += amount;
 				cout << "amount: " << amount << endl << endl;
@@ -698,14 +698,14 @@ int UserManager::showAllSortedIncomesForSelectedPeriod(int startingDate, int end
 	return sum;
 }
 
-int UserManager::showAllSortedExpensesForSelectedPeriod(int startingDate, int endingDate) {
+double UserManager::showAllSortedExpensesForSelectedPeriod(double startingDate, double endingDate) {
 		
 	cout << "Expenses list" << endl;
 	cout << "-------------------------" << endl;
 
 	sort(vectorExpenses.begin(), vectorExpenses.end(), lessExpenseDate());
 
-	int sum = 0;
+	double sum = 0;
 	for (vector <Expenses>::iterator itr = vectorExpenses.begin(); itr != vectorExpenses.end(); itr++) {
 		if (itr->getUserId() == loggedInUserId) {
 			int intDate = itr->getDate();
@@ -717,7 +717,7 @@ int UserManager::showAllSortedExpensesForSelectedPeriod(int startingDate, int en
 				item = itr->getItem();
 				cout << "item: " << item << endl;
 
-				int amount = 0;
+				double amount = 0;
 				amount = itr->getAmount();
 				sum += amount;
 				cout << "amount: " << amount << endl << endl;
@@ -736,9 +736,9 @@ void UserManager::balanceSheetForSelectedPeriod() {
 	showAllSortedIncomesForSelectedPeriod(startingDate, endingDate);
 	showAllSortedExpensesForSelectedPeriod(startingDate, endingDate);
 
-	int incomesSum = showAllSortedIncomesForSelectedPeriod(startingDate, endingDate);
-	int expensesSum = showAllSortedExpensesForSelectedPeriod(startingDate, endingDate);
-	int balance = incomesSum - expensesSum;
+	double incomesSum = showAllSortedIncomesForSelectedPeriod(startingDate, endingDate);
+	double expensesSum = showAllSortedExpensesForSelectedPeriod(startingDate, endingDate);
+	double balance = incomesSum - expensesSum;
 
 	cout << endl;
 	cout << "-------------------------" << endl;
