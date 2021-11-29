@@ -5,6 +5,7 @@
 #include <sstream>
 #include <windows.h>
 #include <algorithm>
+#include <math.h> // redundant in my development environment (Visual Studio Community 2017)
 
 using namespace std;
 

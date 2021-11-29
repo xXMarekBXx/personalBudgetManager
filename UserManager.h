@@ -27,7 +27,7 @@ class UserManager {
 	Expenses expenses;
 	vector <Expenses> vectorExpenses;
 	ExpensesFile expensesFile;
-
+	
 	User getNewUserData();
 	int getNewUserId();
 	bool isLoginExist(string login);		

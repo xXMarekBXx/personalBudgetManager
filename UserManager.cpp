@@ -5,19 +5,25 @@ int UserManager::getLoggedInUserId() {
 	return loggedInUserId;
 }
 
-int UserManager::getNewUserId() {	
-	return users.back().getUserId() + 1;
+int UserManager::getNewUserId() { //reordered conditions fixed the problem
 	if (users.empty())
+	{
 		return 1;
-}
+	}
+	else {
+		return users.back().getUserId() + 1;
+	}
+}		
 
 void UserManager::userRegistration() {
-
+		
+	User user;
 	cout << endl << endl << endl;
 	cout << "YOUR NEW ACCOUNT CREATOR" << endl;
 	cout << "------------------------" << endl;	
-	User user = getNewUserData();
-
+	
+	user = getNewUserData();
+	
 	users.push_back(user);
 	usersFile.addUserToFile(user);
 
@@ -28,9 +34,9 @@ void UserManager::userRegistration() {
 User UserManager::getNewUserData() {
 
 	User user;
-
+	
 	user.setUserId(getNewUserId());
-
+	
 	string login;
 
 	do
@@ -674,7 +680,7 @@ int UserManager::showAllSortedIncomesForSelectedPeriod(int startingDate, int end
 		if (itr->getUserId() == loggedInUserId) {
 			int intDate = itr->getDate();
 			string stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
-			if ((startingDate < intDate) && (intDate < endingDate)) {
+			if ((startingDate <= intDate) && (intDate <= endingDate)) { //adding "<=" fixed the problem
 				cout << "Data: " << stringDate << endl;
 
 				string item = "";
@@ -704,7 +710,7 @@ int UserManager::showAllSortedExpensesForSelectedPeriod(int startingDate, int en
 		if (itr->getUserId() == loggedInUserId) {
 			int intDate = itr->getDate();
 			string stringDate = AuxiliaryMethods::dateConnectorConverter(intDate);
-			if ((startingDate < intDate) && (intDate < endingDate)) {
+			if ((startingDate <= intDate) && (intDate <= endingDate)) {
 				cout << "Data: " << stringDate << endl;
 
 				string item = "";
