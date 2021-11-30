@@ -234,9 +234,12 @@ void UserManager::getAllDataToTodaysIncome() {
 	incomes.setItem(item);	
 
 	cout << "Enter the amount of the income: ";
-	double amount;
-	cin >> amount;	
-	incomes.setAmount(amount);	
+	string stringAmount;
+	cin >> stringAmount;
+	replace(stringAmount.begin(), stringAmount.end(), ',', '.');
+	double doubleAmount = 0.0;
+	doubleAmount = AuxiliaryMethods::convertStringToDouble(stringAmount);
+	incomes.setAmount(doubleAmount);
 }
 
 void UserManager::getAllDataToSelectedIncome() {
@@ -262,9 +265,12 @@ void UserManager::getAllDataToSelectedIncome() {
 	incomes.setItem(item);
 
 	cout << "Enter the amount of the income: ";
-	double amount;
-	cin >> amount;	
-	incomes.setAmount(amount);
+	string stringAmount;
+	cin >> stringAmount;
+	replace(stringAmount.begin(), stringAmount.end(), ',', '.');
+	double doubleAmount = 0.0;
+	doubleAmount = AuxiliaryMethods::convertStringToDouble(stringAmount);
+	incomes.setAmount(doubleAmount);
 }
 
 void UserManager::todayOrAnyOtherDateExpenseMenu() {
@@ -320,10 +326,13 @@ void UserManager::getAllDataToTodaysExpense() {
 	item = AuxiliaryMethods::readLine();
 	expenses.setItem(item);
 
-	cout << "Enter the amount of the expense: ";
-	double amount;
-	cin >> amount;
-	expenses.setAmount(amount);
+	cout << "Enter the amount of the income: ";
+	string stringAmount;
+	cin >> stringAmount;
+	replace(stringAmount.begin(), stringAmount.end(), ',', '.');
+	double doubleAmount = 0.0;
+	doubleAmount = AuxiliaryMethods::convertStringToDouble(stringAmount);
+	expenses.setAmount(doubleAmount);
 }
 
 void UserManager::getAllDataToSelectedExpense() {
@@ -348,10 +357,13 @@ void UserManager::getAllDataToSelectedExpense() {
 	cin >> item;
 	expenses.setItem(item);
 
-	cout << "Enter the amount of the expense: ";
-	int amount;
-	cin >> amount;
-	expenses.setAmount(amount);
+	cout << "Enter the amount of the income: ";
+	string stringAmount;
+	cin >> stringAmount;
+	replace(stringAmount.begin(), stringAmount.end(), ',', '.');
+	double doubleAmount = 0.0;
+	doubleAmount = AuxiliaryMethods::convertStringToDouble(stringAmount);
+	expenses.setAmount(doubleAmount);
 }
 
 void UserManager::addIncome() {

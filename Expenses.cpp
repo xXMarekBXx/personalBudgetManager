@@ -141,7 +141,7 @@ vector <Expenses> ExpensesFile::loadAllExpensesDataFromFileToVector() {
 		xml.FindElem("amount");
 		string amount;
 		amount = xml.GetData();
-		expenses.setAmount(AuxiliaryMethods::convertStringToInt(amount));
+		expenses.setAmount(AuxiliaryMethods::convertStringToDouble(amount));
 
 		vectorExpenses.push_back(expenses);
 		xml.OutOfElem();
